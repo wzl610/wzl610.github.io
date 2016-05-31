@@ -7,18 +7,21 @@
   <title>RESTful理解 | Allen&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="什么是REST?什么又是RESTful?node.js如何实现REST架构?
-REST与RESTfulREST与RESTful这几年来一直充斥在各大博客与技术论坛中，它们是何方神圣呢？其实REST并不是一种新的技术，而是一种软件架构的设计风格，全称是REpresentational State Transfer，是由http协议主要设计者Fielding在一篇论文中提到，从而引起大家的关注，并且">
+
+REST与RESTfulREST与RESTful这几年来一直充斥在各大博客与技术论坛中，它们是何方神圣呢？其实REST并不是一种新的技术，而是一种软件架构的设计风格，全称是REpresentational State Transfer，是由http协议主要设计者Fielding在一篇论文中提到，从而引起大家的关注，并">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RESTful理解">
 <meta property="og:url" content="http://zelin.wang/2016/03/15/uid10/index.html">
 <meta property="og:site_name" content="Allen's blog">
 <meta property="og:description" content="什么是REST?什么又是RESTful?node.js如何实现REST架构?
-REST与RESTfulREST与RESTful这几年来一直充斥在各大博客与技术论坛中，它们是何方神圣呢？其实REST并不是一种新的技术，而是一种软件架构的设计风格，全称是REpresentational State Transfer，是由http协议主要设计者Fielding在一篇论文中提到，从而引起大家的关注，并且">
-<meta property="og:updated_time" content="2016-05-31T07:28:08.000Z">
+
+REST与RESTfulREST与RESTful这几年来一直充斥在各大博客与技术论坛中，它们是何方神圣呢？其实REST并不是一种新的技术，而是一种软件架构的设计风格，全称是REpresentational State Transfer，是由http协议主要设计者Fielding在一篇论文中提到，从而引起大家的关注，并">
+<meta property="og:updated_time" content="2016-05-31T07:47:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RESTful理解">
 <meta name="twitter:description" content="什么是REST?什么又是RESTful?node.js如何实现REST架构?
-REST与RESTfulREST与RESTful这几年来一直充斥在各大博客与技术论坛中，它们是何方神圣呢？其实REST并不是一种新的技术，而是一种软件架构的设计风格，全称是REpresentational State Transfer，是由http协议主要设计者Fielding在一篇论文中提到，从而引起大家的关注，并且">
+
+REST与RESTfulREST与RESTful这几年来一直充斥在各大博客与技术论坛中，它们是何方神圣呢？其实REST并不是一种新的技术，而是一种软件架构的设计风格，全称是REpresentational State Transfer，是由http协议主要设计者Fielding在一篇论文中提到，从而引起大家的关注，并">
   
     <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
   
@@ -219,8 +222,8 @@ REST与RESTfulREST与RESTful这几年来一直充斥在各大博客与技术论�
       
         <blockquote>
 <p>什么是REST?什么又是RESTful?node.js如何实现REST架构?</p>
-<h3 id="REST与RESTful"><a href="#REST与RESTful" class="headerlink" title="REST与RESTful"></a>REST与RESTful</h3><p>REST与RESTful这几年来一直充斥在各大博客与技术论坛中，它们是何方神圣呢？其实REST并不是一种新的技术，而是一种软件架构的设计风格，全称是REpresentational State Transfer，是由http协议主要设计者Fielding在一篇论文中提到，从而引起大家的关注，并且得到实现和推广。前面所说REST是一种软件架构的设计风格，那么凡是符合REST设计的架构称为RESTful架构。</p>
 </blockquote>
+<h3 id="REST与RESTful"><a href="#REST与RESTful" class="headerlink" title="REST与RESTful"></a>REST与RESTful</h3><p>REST与RESTful这几年来一直充斥在各大博客与技术论坛中，它们是何方神圣呢？其实REST并不是一种新的技术，而是一种软件架构的设计风格，全称是REpresentational State Transfer，是由http协议主要设计者Fielding在一篇论文中提到，从而引起大家的关注，并且得到实现和推广。前面所说REST是一种软件架构的设计风格，那么凡是符合REST设计的架构称为RESTful架构。</p>
 <a id="more"></a>
 <h3 id="REST是什么？"><a href="#REST是什么？" class="headerlink" title="REST是什么？"></a>REST是什么？</h3><p>刚才说到REST是REpresentational State Transfer的缩写，中文意思是表现层(资源)的状态转变，什么是资源？网络上的任何一个实体都是资源，包括文字、图片、音频、视频等等你所能想到的，我们知道如果我需要获取一张图片，那么我需要通过URI（通用资源标识符）来获取它，并且这个URI是独一无二的。那么对于“状态转变”又如何理解呢，其实对于数据库操作来说，我们无非就四种基本操作，增删改查，那么对于资源的交互来说，一样是存在这四种状态，增删改查。</p>
 <h3 id="REST是怎么样一种风格？"><a href="#REST是怎么样一种风格？" class="headerlink" title="REST是怎么样一种风格？"></a>REST是怎么样一种风格？</h3><p>看了上面，你或许还是云里雾里，仅仅只是了解了REST是怎么一个概念，甚至对于这个概念的了解程度也只是停留在表面，那么接下来我们就深入点介绍这种设计风格。假如我们数据库有这样的数据：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> books = &#123;</span><br><span class="line">    <span class="string">'book_1'</span>:&#123;</span><br><span class="line">        <span class="string">'id'</span> : <span class="number">1</span>,</span><br><span class="line">        <span class="string">'name'</span>:<span class="string">'javascript高级程序设计'</span>,</span><br><span class="line">        <span class="string">'money'</span>:<span class="string">'99rmb'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'book_2'</span>:&#123;</span><br><span class="line">        <span class="string">'id'</span>:<span class="number">2</span>,</span><br><span class="line">        <span class="string">'name'</span>:<span class="string">'javascript权威指南'</span>,</span><br><span class="line">        <span class="string">'money'</span>:<span class="string">'100rmb'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
