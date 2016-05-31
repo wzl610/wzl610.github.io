@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>使用gulp简化你的工作 | Allen&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言构建工具的产生，极大地简化了我们的开发流程，让我们一起来看看在没有这些构建工具出现之前，我们的工作场景：写好js、css，合并压缩文件，改名，修改版本号，发布线上。等到需要修改一个功能的时候，重复上面的步骤。甚至如果使用了sass之类的来写样式的话，还得把sass转换成css。我们会发现有很多重复性的工作，对于程序员这种懒人来说是非常难受的，所以构建工具应运而生。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用gulp简化你的工作">
+<meta property="og:url" content="http://zelin.wang/2016/04/11/uid11/index.html">
+<meta property="og:site_name" content="Allen's blog">
+<meta property="og:description" content="前言构建工具的产生，极大地简化了我们的开发流程，让我们一起来看看在没有这些构建工具出现之前，我们的工作场景：写好js、css，合并压缩文件，改名，修改版本号，发布线上。等到需要修改一个功能的时候，重复上面的步骤。甚至如果使用了sass之类的来写样式的话，还得把sass转换成css。我们会发现有很多重复性的工作，对于程序员这种懒人来说是非常难受的，所以构建工具应运而生。">
+<meta property="og:updated_time" content="2016-05-31T07:29:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用gulp简化你的工作">
+<meta name="twitter:description" content="前言构建工具的产生，极大地简化了我们的开发流程，让我们一起来看看在没有这些构建工具出现之前，我们的工作场景：写好js、css，合并压缩文件，改名，修改版本号，发布线上。等到需要修改一个功能的时候，重复上面的步骤。甚至如果使用了sass之类的来写样式的话，还得把sass转换成css。我们会发现有很多重复性的工作，对于程序员这种懒人来说是非常难受的，所以构建工具应运而生。">
+  
+    <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Allen Wang</a><span style="margin-left:5px;"><wb:follow-button uid="2119813493" type="red_1" width="67" height="24" ></wb:follow-button></span></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Allen Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Allen Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-uid11" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/11/uid11/" class="article-date">
+  	<time datetime="2016-04-11T04:06:00.000Z" itemprop="datePublished">2016-04-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用gulp简化你的工作
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>构建工具的产生，极大地简化了我们的开发流程，让我们一起来看看在没有这些构建工具出现之前，我们的工作场景：写好js、css，合并压缩文件，改名，修改版本号，发布线上。等到需要修改一个功能的时候，重复上面的步骤。甚至如果使用了sass之类的来写样式的话，还得把sass转换成css。我们会发现有很多重复性的工作，对于程序员这种懒人来说是非常难受的，所以构建工具应运而生。<br><a id="more"></a></p>
+<h3 id="与grunt的区别"><a href="#与grunt的区别" class="headerlink" title="与grunt的区别"></a>与grunt的区别</h3><p>grunt也是一个著名的构建工具，并且拥有众多的粉丝，那么，gulp与grunt有啥区别呢？主要的区别点在于他们的实现方式上，grunt在处理任务的时候是使用I/O生成临时文件来处理任务，而gulp是使用类似于工作流的形式将中间的任务存储于内存之中来实现，从这里看出，利用内存的gulp显然在速度上会比频繁操作I/O的grunt速度快些。</p>
+<h3 id="gulp初体验"><a href="#gulp初体验" class="headerlink" title="gulp初体验"></a>gulp初体验</h3><p>首先，当然是安装啦，由于gulp是基于node的，所以可以很轻松地利用npm进行安装，在这里需要注意，我们不仅需要全局-g安装同时也需要在项目中-save-dev安装，全局安装是因为我们需要用到gulp命令，而项目安装是因为我们需要引用到gulp来建立任务。<br>安装好后，我们需要在项目根目录中建立gulpfile.js来设立我们的gulp工作流。然后在gulpfile.js里建立我们的helloworld：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'default'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'helloworld'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在项目根目录下运行gulp就会出现helloworld了。</p>
+<h3 id="gulp常用语法"><a href="#gulp常用语法" class="headerlink" title="gulp常用语法"></a>gulp常用语法</h3><h4 id="task"><a href="#task" class="headerlink" title="task"></a>task</h4><p>task主要就是创建你的自动化任务，第一个参数是任务名，第二个参数为可选参数，这个任务所依赖的其他任务，第三个参数为具体任务流程。<br>首先，任务名的作用是什么，人物名是任务的唯一标示符，当你希望运行gulp任务的时候，你都需要使用:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gulp 任务名</span><br></pre></td></tr></table></figure></p>
+<p>你一定很奇怪，刚才实现helloworld的时候我们直接使用gulp就好了，并没有使用任务名，这是因为gulp的默认任务名是”default”，如果你定义了”default”任务的时候，当你使用gulp命令的时候默认调用default任务。<br>第二个参数为依赖任务，如果有需要提前执行的任务，那么就可以在这边定义了：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(<span class="string">'first'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'first'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">    </span><br><span class="line">gulp.task(<span class="string">'second'</span>,[<span class="string">'first'</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'second'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>当我们运行gulp second的时候，是会先执行first任务的。当然，依赖是一个数组，可以包含几个依赖任务。</p>
+<h4 id="src"><a href="#src" class="headerlink" title="src"></a>src</h4><p>src主要是定位我们需要监听或者改变的文件位置，可以使用精确匹配，也可以使用模糊匹配，可以看下下面的举例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">js/app.js 精确匹配文件</span><br><span class="line">js/.js 仅匹配js目录下的所有后缀为.js的文件</span><br><span class="line">js<span class="comment">//.js 匹配js目录及其子目录下所有后缀为.js的文件</span></span><br><span class="line">!js/app.js 从匹配结果中排除js/app.js，这种方法在你想要匹配除了特殊文件之外的所有文件时非常管用</span><br></pre></td></tr></table></figure></p>
+<h4 id="dest"><a href="#dest" class="headerlink" title="dest"></a>dest</h4><p>定义输出的路径</p>
+<h4 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h4><p>监听文件的改变，执行预定义的任务，可以看下面的一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gulp.task(<span class="string">'server'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'test'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'default'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    gulp.watch(<span class="string">'js/*.js'</span>,[<span class="string">'server'</span>]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里就是监听js目录下所有js文件的变动，如果变动了，就执行依赖任务server,当然依赖任务可以用执行函数来代替。</p>
+<h3 id="gulp常见插件"><a href="#gulp常见插件" class="headerlink" title="gulp常见插件"></a>gulp常见插件</h3><p>gulp自从面世以来已经有了上千个插件，这里主要挑一些常用的对于css处理的插件进行介绍。</p>
+<h4 id="gulp-ruby-sass"><a href="#gulp-ruby-sass" class="headerlink" title="gulp-ruby-sass"></a>gulp-ruby-sass</h4><p>很显然，这是一个将sass转换成css的插件，从此再也不用其他第三方插件进行转化了。</p>
+<h4 id="gulp-autoprefixer"><a href="#gulp-autoprefixer" class="headerlink" title="gulp-autoprefixer"></a>gulp-autoprefixer</h4><p>这个属于postCss中的一个，堪称神器，当我们使用css3属性的时候为了兼容各类浏览器而需要使用不同的前缀，如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">display</span><span class="selector-pseudo">:-webkit-flex</span>;</span><br><span class="line"><span class="selector-tag">display</span><span class="selector-pseudo">:-ms-flexbox</span>;</span><br><span class="line"><span class="selector-tag">display</span><span class="selector-pseudo">:flex</span>;</span><br></pre></td></tr></table></figure></p>
+<p>然后当我们使用了autoprefixer以后，我们可以按照往常一样正常写css就可以了，如：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">display</span> : <span class="selector-tag">flex</span>;</span><br></pre></td></tr></table></figure></p>
+<p>就可以了，autoprefixer会自动根据Can I use的规则来自动实现前缀，简直方便。</p>
+<h4 id="gulp-minify-css"><a href="#gulp-minify-css" class="headerlink" title="gulp-minify-css"></a>gulp-minify-css</h4><p>压缩css的插件</p>
+<h4 id="browser-sync"><a href="#browser-sync" class="headerlink" title="browser-sync"></a>browser-sync</h4><p>当我们每次更新页面内容想要查看更新的时候都需要按F5进行刷新页面，browser-sync让我们告别了F5，直接监听页面变化实时刷新页面，节省了我们不少的时间。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>当然，这里介绍的插件只是冰山一角，gulp还有更多更多神奇的插件大大加快你的开发效率，将那些重复性的劳动用机器代替，简单而且不易出错，下面列出自己针对css的自动化任务的处理：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</span><br><span class="line">	sass = <span class="built_in">require</span>(<span class="string">'gulp-ruby-sass'</span>),</span><br><span class="line">	autoprefixer = <span class="built_in">require</span>(<span class="string">'gulp-autoprefixer'</span>),</span><br><span class="line">	rename = <span class="built_in">require</span>(<span class="string">'gulp-rename'</span>),</span><br><span class="line">	livereload = <span class="built_in">require</span>(<span class="string">'gulp-livereload'</span>),</span><br><span class="line">	minifycss = <span class="built_in">require</span>(<span class="string">'gulp-minify-css'</span>),</span><br><span class="line">	browserSync = <span class="built_in">require</span>(<span class="string">'browser-sync'</span>).create(),</span><br><span class="line">	reload = browserSync.reload;</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'style'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> sass(<span class="string">'./public/sass/*.scss'</span>)</span><br><span class="line">    .on(<span class="string">'error'</span>, sass.logError)</span><br><span class="line">    .pipe(autoprefixer(<span class="string">'last 2 version'</span>))</span><br><span class="line">    .pipe(rename(&#123;suffix:<span class="string">'.min'</span>&#125;))</span><br><span class="line">    .pipe(minifycss())</span><br><span class="line">    .pipe(gulp.dest(<span class="string">'./public/css'</span>))</span><br><span class="line">    .pipe(reload(&#123;stream:<span class="literal">true</span>&#125;));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'serve'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	browserSync.init(&#123;</span><br><span class="line">        proxy: <span class="string">"localhost:3000"</span></span><br><span class="line">    &#125;);</span><br><span class="line">	gulp.watch(<span class="string">'./public/sass/*.scss'</span>,[<span class="string">'style'</span>]);</span><br><span class="line">	gulp.watch(<span class="string">'./views/*.ejs'</span>).on(<span class="string">'change'</span>,reload);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">gulp.task(<span class="string">'default'</span>,[<span class="string">'serve'</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/06/uid12/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          React——带你走进组件化的世界
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/15/uid10/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RESTful理解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="uid11" data-title="使用gulp简化你的工作" data-url="http://zelin.wang/2016/04/11/uid11/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wzl610"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Allen Wang
+    	</div>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78526731-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</script>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

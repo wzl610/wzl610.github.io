@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Phantomjs初尝试 | Allen&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Phantomjs简介Phantomjs身为headless的测试工具，何为headless，就是不需要打开真正的浏览器，使用命令行就可以访问网页。Phantomjs本身就是一个webkit内核的测试工具，换句话就是用Phantomjs模拟webkit内核的浏览器打开网页进行测试，对比curl那些模拟测试有其先天的优势，有些网页的dom节点是通过js进行渲染的，对于curl等的话无法捕捉这部分的节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Phantomjs初尝试">
+<meta property="og:url" content="http://zelin.wang/2015/11/20/uid2/index.html">
+<meta property="og:site_name" content="Allen's blog">
+<meta property="og:description" content="Phantomjs简介Phantomjs身为headless的测试工具，何为headless，就是不需要打开真正的浏览器，使用命令行就可以访问网页。Phantomjs本身就是一个webkit内核的测试工具，换句话就是用Phantomjs模拟webkit内核的浏览器打开网页进行测试，对比curl那些模拟测试有其先天的优势，有些网页的dom节点是通过js进行渲染的，对于curl等的话无法捕捉这部分的节">
+<meta property="og:updated_time" content="2016-05-31T07:18:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Phantomjs初尝试">
+<meta name="twitter:description" content="Phantomjs简介Phantomjs身为headless的测试工具，何为headless，就是不需要打开真正的浏览器，使用命令行就可以访问网页。Phantomjs本身就是一个webkit内核的测试工具，换句话就是用Phantomjs模拟webkit内核的浏览器打开网页进行测试，对比curl那些模拟测试有其先天的优势，有些网页的dom节点是通过js进行渲染的，对于curl等的话无法捕捉这部分的节">
+  
+    <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Allen Wang</a><span style="margin-left:5px;"><wb:follow-button uid="2119813493" type="red_1" width="67" height="24" ></wb:follow-button></span></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Allen Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Allen Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-uid2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/20/uid2/" class="article-date">
+  	<time datetime="2015-11-20T06:36:00.000Z" itemprop="datePublished">2015-11-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Phantomjs初尝试
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Phantomjs简介"><a href="#Phantomjs简介" class="headerlink" title="Phantomjs简介"></a>Phantomjs简介</h3><p>Phantomjs身为headless的测试工具，何为headless，就是不需要打开真正的浏览器，使用命令行就可以访问网页。Phantomjs本身就是一个webkit内核的测试工具，换句话就是用Phantomjs模拟webkit内核的浏览器打开网页进行测试，对比curl那些模拟测试有其先天的优势，有些网页的dom节点是通过js进行渲染的，对于curl等的话无法捕捉这部分的节点，但是使用Phantomjs的话可以很轻松办到。Phantomjs对于测试截图、模拟操作有很好的用途，甚至，对于爬虫都有很好的实现，但是对于测试的话，还是有点不尽如人意。</p>
+<h3 id="测试的分类"><a href="#测试的分类" class="headerlink" title="测试的分类"></a>测试的分类</h3><p>测试一般分为UI测试和逻辑单元测试，对于逻辑单元测试的话，更多的是检测函数的功能实现，目前网上有许多断言的测试工具，如mocha都可以进行断言测试，总体来说逻辑单元测试的复杂性不太高，反而是UI测试的复杂性会高点。</p>
+<h3 id="Phantomjs在UI测试上的作用"><a href="#Phantomjs在UI测试上的作用" class="headerlink" title="Phantomjs在UI测试上的作用"></a>Phantomjs在UI测试上的作用</h3><p>UI测试，有很大一部分是测试UI的交互等，Phantomjs在获取网页后，可以在内部使用dom交互的模拟操作，并且有一定的监听机制，这些都有利于进行UI的交互测试。另外一方面，有人会进行UI的像素级别的测试，换句话说，就是测试页面在修改前后像素级别上的差异，然后用显眼的符号进行标注，更多的可以参考PhantomCSS。<br><a id="more"></a></p>
+<h3 id="Phantomjs的劣势"><a href="#Phantomjs的劣势" class="headerlink" title="Phantomjs的劣势"></a>Phantomjs的劣势</h3><p>虽然Phantomjs是webkit内核，但这种内核与实际的chrome浏览器的webkit还是有点差异，所以在某些实现上，与实际浏览器所看到的还是有点差别。另一方面，由于Phantomjs是webkit内核，所以无法进行浏览器兼容性测试，下面会讲在这方面的尝试。</p>
+<h3 id="Phantomjs在浏览器兼容测试的尝试"><a href="#Phantomjs在浏览器兼容测试的尝试" class="headerlink" title="Phantomjs在浏览器兼容测试的尝试"></a>Phantomjs在浏览器兼容测试的尝试</h3><p>Phantomjs在创建的page中是可以设置userAgent的，所以笔者大胆假设它是可以绕过webkit内核使用其他内核，如FF的Gecko的内核进行伪装成FF进行浏览器的访问。</p>
+<p>首先创建测试示例，在页面中加入一个div，然后div的css设置成：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span>: 300<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">height</span>: 300<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background-color</span>: <span class="selector-tag">red</span>;</span><br><span class="line"><span class="selector-tag">-moz-transform</span> : <span class="selector-tag">translate</span>(100<span class="selector-tag">px</span>,200<span class="selector-tag">px</span>);</span><br></pre></td></tr></table></figure></p>
+<p>OK,理论上来说只有FF的浏览器显示才会出现div的位移效果，然后我设置userAgent为FF的内核：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">page.settings.userAgent = <span class="string">'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>然后进行测试截图，发现截图中的div并没有像想象中那样出现位移效果，所以Phantomjs是没有办法绕过webkit内核去伪装其他内核浏览器进行浏览器兼容测试。</p>
+<h3 id="Phantomjs中userAgent设置的用处"><a href="#Phantomjs中userAgent设置的用处" class="headerlink" title="Phantomjs中userAgent设置的用处"></a>Phantomjs中userAgent设置的用处</h3><p>上面说到无法模拟其他内核的浏览器进行兼容性测试，那么userAgent设置有什么作用呢，目前体验来说，笔者觉得一个作用就是可以模拟手机访问页面，对于一些网站，如www.baidu.com，它是会进行访问设备的判断，当发现是移动设备的时候是会自动跳转到m.baidu.com的，所以设置userAgent为IPhone5的时候：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">page.settings.userAgent = <span class="string">'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>访问百度进行测试截图发现，访问的确实是m.baidu.com，所以设置userAgent可以模拟手机进行访问。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/02/uid3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          javascript中数组的splice操作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/30/uid1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Nodejs学习笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="uid2" data-title="Phantomjs初尝试" data-url="http://zelin.wang/2015/11/20/uid2/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wzl610"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Allen Wang
+    	</div>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78526731-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</script>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

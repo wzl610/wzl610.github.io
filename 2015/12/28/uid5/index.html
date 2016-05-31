@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>对于childNodes的认识 | Allen&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言对于原生dom操作熟悉的童鞋都会知道childNodes是用来获取某个元素的子元素集合的，返回值是一个对象数组，但一些操作所带来的结果有时候并不是你所预料的一样。
+Text返回值12345678&amp;lt;div id = &apos;wrap&apos;&amp;gt;    &amp;lt;div class=&apos;test&apos;&amp;gt;test&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script&amp;gt;    var">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对于childNodes的认识">
+<meta property="og:url" content="http://zelin.wang/2015/12/28/uid5/index.html">
+<meta property="og:site_name" content="Allen's blog">
+<meta property="og:description" content="前言对于原生dom操作熟悉的童鞋都会知道childNodes是用来获取某个元素的子元素集合的，返回值是一个对象数组，但一些操作所带来的结果有时候并不是你所预料的一样。
+Text返回值12345678&amp;lt;div id = &apos;wrap&apos;&amp;gt;    &amp;lt;div class=&apos;test&apos;&amp;gt;test&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script&amp;gt;    var">
+<meta property="og:updated_time" content="2016-05-31T07:22:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对于childNodes的认识">
+<meta name="twitter:description" content="前言对于原生dom操作熟悉的童鞋都会知道childNodes是用来获取某个元素的子元素集合的，返回值是一个对象数组，但一些操作所带来的结果有时候并不是你所预料的一样。
+Text返回值12345678&amp;lt;div id = &apos;wrap&apos;&amp;gt;    &amp;lt;div class=&apos;test&apos;&amp;gt;test&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script&amp;gt;    var">
+  
+    <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Allen Wang</a><span style="margin-left:5px;"><wb:follow-button uid="2119813493" type="red_1" width="67" height="24" ></wb:follow-button></span></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Allen Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Allen Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-uid5" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/28/uid5/" class="article-date">
+  	<time datetime="2015-12-28T07:08:00.000Z" itemprop="datePublished">2015-12-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      对于childNodes的认识
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>对于原生dom操作熟悉的童鞋都会知道childNodes是用来获取某个元素的子元素集合的，返回值是一个对象数组，但一些操作所带来的结果有时候并不是你所预料的一样。</p>
+<h3 id="Text返回值"><a href="#Text返回值" class="headerlink" title="Text返回值"></a>Text返回值</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = 'wrap'&gt;</span><br><span class="line">    &lt;div class='test'&gt;test&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var _wrap = document.getElementById('wrap'),</span><br><span class="line">    nodeList = _wrap.childNodes;</span><br><span class="line">    console.log(nodeList.length);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>很多人的第一反应就是，应该是1，放在浏览器一运行，发现是3。是不是有点大跌眼镜的感觉，打开nodeList对象数组一看，发现除了div.test之外，还多了两个text对象，这两个又是什么gui呢？打开第一个Text对象发现，它的父节点是#wrap,它的下一个兄弟节点是.test，而它的内容是’’,好吧，其实就是.test前面的空格，同理，另外一个Text对象就是.test后面的空格。所以如果按照下面的写法，childNodes自然就为1:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = <span class="string">'wrap'</span>&gt;&lt;div class='test'&gt;test&lt;/div&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> _wrap = <span class="built_in">document</span>.getElementById(<span class="string">'wrap'</span>),</span><br><span class="line">    nodeList = _wrap.childNodes;</span><br><span class="line">    <span class="built_in">console</span>.log(nodeList.length); <span class="comment">//1</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>那么，如果#wrap没有节点的时候，会返回什么呢？这里同样有两种写法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = <span class="string">'wrap'</span>&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> _wrap = <span class="built_in">document</span>.getElementById(<span class="string">'wrap'</span>),</span><br><span class="line">    nodeList = _wrap.childNodes;</span><br><span class="line">    <span class="built_in">console</span>.log(nodeList.length);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>自然，这样的话也同样会返回Text对象，但只有一个,所以length为1.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = <span class="string">'wrap'</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> _wrap = <span class="built_in">document</span>.getElementById(<span class="string">'wrap'</span>),</span><br><span class="line">    nodeList = _wrap.childNodes;</span><br><span class="line">    <span class="built_in">console</span>.log(nodeList.length);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这样的话，才会返回我们所想象的空数组。最后一种情况，当#wrap中有多个div对象的时候，又会出现什么情况呢？首先是比较简单的没空格情况:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = <span class="string">'wrap'</span>&gt;&lt;div class='test'&gt;test&lt;/div&gt;&lt;div class='test'&gt;test&lt;/div&gt;&lt;div class='test'&gt;test&lt;/div&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> _wrap = <span class="built_in">document</span>.getElementById(<span class="string">'wrap'</span>),</span><br><span class="line">    nodeList = _wrap.childNodes;</span><br><span class="line">    <span class="built_in">console</span>.log(nodeList.length); <span class="comment">//3</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样的话，显然是有3个节点，但如果换成我们书写习惯缩进的情况呢？<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = 'wrap'&gt;</span><br><span class="line">    &lt;div class='test'&gt;test&lt;/div&gt;</span><br><span class="line">    &lt;div class='test'&gt;test&lt;/div&gt;</span><br><span class="line">    &lt;div class='test'&gt;test&lt;/div&gt;</span><br><span class="line">    &lt;div class='test'&gt;test&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var _wrap = document.getElementById('wrap'),</span><br><span class="line">    nodeList = _wrap.childNodes;</span><br><span class="line">    console.log(nodeList.length);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>发现length输出为9，除了4个.test元素节点以外有5个Text节点，为#wrap后面的空格，4个.test后面的空格。</p>
+<h3 id="appendChild操作"><a href="#appendChild操作" class="headerlink" title="appendChild操作"></a>appendChild操作</h3><p>那么，append操作插入的节点又是什么样的情况呢？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"wrap"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> wrap = <span class="built_in">document</span>.getElementById(<span class="string">'wrap'</span>),newDiv;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; <span class="number">4</span>;i++)&#123;</span><br><span class="line">        newDiv = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">        newDiv.innerHTML = <span class="string">'test'</span>;</span><br><span class="line">        wrap.appendChild(newDiv);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> nodeList = wrap.childNodes;</span><br><span class="line">    <span class="built_in">console</span>.dir(nodeList);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在4次for循环里都创建一个div元素，然后插入到#wrap，输出length一看，发现确实就是4，说明appendChild操作产生的是没有空格形式存在的，这点要注意。</p>
+<h3 id="removeChild操作"><a href="#removeChild操作" class="headerlink" title="removeChild操作"></a>removeChild操作</h3><p>其实，正如数组是一种引用类型一样，对于childNodes的相关操作都会影响到引用值的变化，这一点如果不记清楚的话很容易造成一些意想不到的错误。如下代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"wrap"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> wrap = <span class="built_in">document</span>.getElementById(<span class="string">'wrap'</span>),newDiv;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; <span class="number">4</span>;i++)&#123;</span><br><span class="line">        newDiv = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">        newDiv.innerHTML = i;</span><br><span class="line">        wrap.appendChild(newDiv);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//删除第二个元素</span></span><br><span class="line">    <span class="keyword">var</span> nodeList = wrap.childNodes;</span><br><span class="line">    wrap.removeChild(nodeList[<span class="number">1</span>]);</span><br><span class="line">    <span class="built_in">console</span>.dir(nodeList);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在一开始的时候循环创建了4个div元素，然后将第二个元素给删除了，这个时候需要注意了，其实nodeList也是随之变化的，正如前面所说，nodeList是一个对象数组引用值，当数组的实际情况发生改变时，那么，nodeList这个引用值也会发生改变。当删除掉第二个元素的时候，nodeList的length其实已经变成了3，这个时候如果你再去访问nodeList[3]是会出错的，并且，这个时候的nodeList[1]是存在，打印它的innerHTML发现是2，所以发现删除了第二个元素的时候，第三个元素就会往前推，变成nodeList[1]，这一点也要注意。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>上面发现，对于dom的原生操作还是有许多意想不到的情况出现的，这时候就要多打印几次出来看看里面的对象，一不留神，可能就忽略了一些容易忽略的地方从而造成很难察觉的错误。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/13/uid6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          变量提升
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/17/uid4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">node.js+socket.io实现聊天室</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="uid5" data-title="对于childNodes的认识" data-url="http://zelin.wang/2015/12/28/uid5/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wzl610"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Allen Wang
+    	</div>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78526731-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</script>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

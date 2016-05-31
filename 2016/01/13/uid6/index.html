@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>变量提升 | Allen&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JavaScript作为解释型语言，与编译型语言有很大的不同，变量的声明会更加灵活，但同时也会带来一些问题，变量提升就是其中的一个需要特别注意的地方。
+
+变量提升（对于变量）12345678910111213var myvar = &apos;变量值&apos;; console.log(myvar); // 变量值//代码段2--------------------------var myvar = &apos;变量值2&apos;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变量提升">
+<meta property="og:url" content="http://zelin.wang/2016/01/13/uid6/index.html">
+<meta property="og:site_name" content="Allen's blog">
+<meta property="og:description" content="JavaScript作为解释型语言，与编译型语言有很大的不同，变量的声明会更加灵活，但同时也会带来一些问题，变量提升就是其中的一个需要特别注意的地方。
+
+变量提升（对于变量）12345678910111213var myvar = &apos;变量值&apos;; console.log(myvar); // 变量值//代码段2--------------------------var myvar = &apos;变量值2&apos;">
+<meta property="og:updated_time" content="2016-05-31T07:23:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="变量提升">
+<meta name="twitter:description" content="JavaScript作为解释型语言，与编译型语言有很大的不同，变量的声明会更加灵活，但同时也会带来一些问题，变量提升就是其中的一个需要特别注意的地方。
+
+变量提升（对于变量）12345678910111213var myvar = &apos;变量值&apos;; console.log(myvar); // 变量值//代码段2--------------------------var myvar = &apos;变量值2&apos;">
+  
+    <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Allen Wang</a><span style="margin-left:5px;"><wb:follow-button uid="2119813493" type="red_1" width="67" height="24" ></wb:follow-button></span></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Allen Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Allen Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-uid6" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/13/uid6/" class="article-date">
+  	<time datetime="2016-01-13T08:52:00.000Z" itemprop="datePublished">2016-01-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      变量提升
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>JavaScript作为解释型语言，与编译型语言有很大的不同，变量的声明会更加灵活，但同时也会带来一些问题，变量提升就是其中的一个需要特别注意的地方。</p>
+</blockquote>
+<h2 id="变量提升（对于变量）"><a href="#变量提升（对于变量）" class="headerlink" title="变量提升（对于变量）"></a>变量提升（对于变量）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myvar = <span class="string">'变量值'</span>; </span><br><span class="line"><span class="built_in">console</span>.log(myvar); <span class="comment">// 变量值</span></span><br><span class="line"><span class="comment">//代码段2--------------------------</span></span><br><span class="line"><span class="keyword">var</span> myvar = <span class="string">'变量值2'</span>;  </span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">   <span class="built_in">console</span>.log(myvar); <span class="comment">//变量值2</span></span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">//代码段3----------------------------</span></span><br><span class="line"><span class="keyword">var</span> myvar = <span class="string">'变量值'</span>; </span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">   <span class="built_in">console</span>.log(myvar); <span class="comment">// undefined </span></span><br><span class="line">   <span class="keyword">var</span> myvar = <span class="string">'内部变量值'</span>; </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>代码段1会在控制台打印出 变量值 ，很容易理解；代码段2也会在控制台打印出 变量值 ，Javascript编译器首先在匿名函数内部作用域（Scope）查看变量myvar是否声明，发现没有，就继续向上一级的作用域（Scope）查看是否声明 myvar，发现存在，即打印出该作用域的myvar值。但对于代码3，变量声明进行了提升，等同于下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myvar = <span class="string">'变量值'</span>; </span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> myvar ; <span class="comment">//undefined;</span></span><br><span class="line">    <span class="built_in">console</span>.log(myvar); <span class="comment">// undefined </span></span><br><span class="line">    myvar = <span class="string">'内部变量值'</span>; </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h2 id="变量提升（对于函数）"><a href="#变量提升（对于函数）" class="headerlink" title="变量提升（对于函数）"></a>变量提升（对于函数）</h2><p>Javascript Function有两种类型:<br>1、<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数声明</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funDeclaration</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">return</span> type===<span class="string">"Declaration"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数表达式</span></span><br><span class="line"><span class="keyword">var</span> funExpression = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> type===<span class="string">"Expression"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后运行下面两段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">funDeclaration(<span class="string">"Declaration"</span>);<span class="comment">//=&gt; true</span></span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">funDeclaration</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> type===<span class="string">"Declaration"</span>;</span><br><span class="line">   &#125;</span><br><span class="line">     </span><br><span class="line">funExpression(<span class="string">"Expression"</span>);<span class="comment">//=&gt;error</span></span><br><span class="line"><span class="keyword">var</span> funExpression = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">return</span> type===<span class="string">"Expression"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这边也涉及到变量提升，上面的代码等同于:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funDeclaration</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> type===<span class="string">"Declaration"</span>;</span><br><span class="line">&#125;</span><br><span class="line">funDeclaration(<span class="string">"Declaration"</span>);<span class="comment">//=&gt; true</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">var</span> funExpression;</span><br><span class="line">funExpression(<span class="string">"Expression"</span>);<span class="comment">//==&gt;error</span></span><br><span class="line">funExpression = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> type===<span class="string">"Expression"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再来看看下面的代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sayHello;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> (sayHey));<span class="comment">//=&gt;function    </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> (sayHello));<span class="comment">//=&gt;undefined</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sayHey</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"sayHey"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    sayHello = <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"sayHello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sayHey</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"sayHey2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    sayHello = <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"sayHello2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br><span class="line">sayHey();<span class="comment">// =&gt; sayHey2    </span></span><br><span class="line">sayHello();<span class="comment">// =&gt; sayHello</span></span><br></pre></td></tr></table></figure></p>
+<p>sayHey是用函数声明创建的，在JS解析时JS编译器将函数定义进行了函数提升，也就是说，在解析JS代码的时候，JS编译器（条件判断不形成新的作用域，两个sayHey函数定义都被提升到条件判断之外）检测到作用域内有两个同名的sayHey定义，第一个定义先被提升，第二个定义接着被提升（第二个定义在第一个定义之下），第二个定义覆盖了第一个sayHey定义，所以sayHey（）输出sayHey2；而sayHello是用函数表达式创建的，其表达式的内容是在JS运行时（不是解析时）才能确定（这里条件判断就起到作用了），所以sayHello表达式执行了第一个函数定义并赋值，则sayHello（）输出sayHello。<br>其实代码等同于：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sayHello;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHey</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"sayHey"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHey</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"sayHey2"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> (sayHey));<span class="comment">//=&gt;function    </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> (sayHello));<span class="comment">//=&gt;undefined</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="comment">//hoisting...</span></span><br><span class="line">    sayHello = <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"sayHello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//hoisting...</span></span><br><span class="line">    sayHello = <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"sayHello2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    </span><br><span class="line">sayHey();<span class="comment">// =&gt; sayHey2    </span></span><br><span class="line">sayHello();<span class="comment">// =&gt; sayHello</span></span><br></pre></td></tr></table></figure></p>
+<p>所以函数也好，变量也好，如果是编译时声明，跟定义的位置没有关系，编译器会从头往下全文检索一遍，然后用最后面的那个进行定义，但运行时声明就不同，它选择的是定义位置之上检索，如果有，就赋值，没有，就undefined，无论你下文有没有再定义。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/20/uid7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          CSS3实现逐帧动画
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/28/uid5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">对于childNodes的认识</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="uid6" data-title="变量提升" data-url="http://zelin.wang/2016/01/13/uid6/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wzl610"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Allen Wang
+    	</div>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78526731-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</script>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

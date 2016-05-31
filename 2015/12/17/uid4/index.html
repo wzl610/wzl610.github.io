@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>node.js+socket.io实现聊天室 | Allen&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言在web2.0的时代，我们可以通过ajax进行异步拉请求，而不需要等待请求完成才响应，这对于web体验而言是一大福音。但随着社会的进步，人们已经不满足这种拉数据的过程，特别是对于许多实时的应用，如聊天、信息监控、通知等，服务器想要给客户端传递一些信息的时候，这个时候就不能等待客户拉数据请求再把数据传送过去，而是要主动推送数据过去，从而出现了socket，一个双向的通信连接实现数据的交换。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js+socket.io实现聊天室">
+<meta property="og:url" content="http://zelin.wang/2015/12/17/uid4/index.html">
+<meta property="og:site_name" content="Allen's blog">
+<meta property="og:description" content="前言在web2.0的时代，我们可以通过ajax进行异步拉请求，而不需要等待请求完成才响应，这对于web体验而言是一大福音。但随着社会的进步，人们已经不满足这种拉数据的过程，特别是对于许多实时的应用，如聊天、信息监控、通知等，服务器想要给客户端传递一些信息的时候，这个时候就不能等待客户拉数据请求再把数据传送过去，而是要主动推送数据过去，从而出现了socket，一个双向的通信连接实现数据的交换。">
+<meta property="og:image" content="http://file.ipresst.com/material/pi/5e/pi5e97/f05904e139b149b941f4734ada05aa40bb76cff2.png">
+<meta property="og:image" content="http://file.ipresst.com/material/pi/5e/pi5e97/0f5a68b07c9aaec97a3b38801878faae46561cfb.png">
+<meta property="og:updated_time" content="2016-05-31T07:21:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node.js+socket.io实现聊天室">
+<meta name="twitter:description" content="前言在web2.0的时代，我们可以通过ajax进行异步拉请求，而不需要等待请求完成才响应，这对于web体验而言是一大福音。但随着社会的进步，人们已经不满足这种拉数据的过程，特别是对于许多实时的应用，如聊天、信息监控、通知等，服务器想要给客户端传递一些信息的时候，这个时候就不能等待客户拉数据请求再把数据传送过去，而是要主动推送数据过去，从而出现了socket，一个双向的通信连接实现数据的交换。">
+<meta name="twitter:image" content="http://file.ipresst.com/material/pi/5e/pi5e97/f05904e139b149b941f4734ada05aa40bb76cff2.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Allen Wang</a><span style="margin-left:5px;"><wb:follow-button uid="2119813493" type="red_1" width="67" height="24" ></wb:follow-button></span></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Allen Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Allen Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-uid4" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/17/uid4/" class="article-date">
+  	<time datetime="2015-12-17T09:45:00.000Z" itemprop="datePublished">2015-12-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      node.js+socket.io实现聊天室
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在web2.0的时代，我们可以通过ajax进行异步拉请求，而不需要等待请求完成才响应，这对于web体验而言是一大福音。但随着社会的进步，人们已经不满足这种拉数据的过程，特别是对于许多实时的应用，如聊天、信息监控、通知等，服务器想要给客户端传递一些信息的时候，这个时候就不能等待客户拉数据请求再把数据传送过去，而是要主动推送数据过去，从而出现了socket，一个双向的通信连接实现数据的交换。<br><a id="more"></a></p>
+<h3 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h3><p>在websocket出现以前，主要是两种技术实现socket通信，一种是长轮询，就是客户端不断发送请求，询问服务器端是否有新的数据要 传输过来；另外一种是基于ajax的Comet技术，服务器会阻塞请求，等到有消息的时候再返回。<br>这两种技术都是基于http协议进行实现的，直到html5的出现，从而定义了websocket协议，在websocketAPI定义中，客户端和服务器端只要进行一次握手操作，就可以建立一条socket通道，两者之间就可以直接进行数据传递。</p>
+<h3 id="websocket握手协议"><a href="#websocket握手协议" class="headerlink" title="websocket握手协议"></a>websocket握手协议</h3><p>在实现websocket连线过程中，需要通过浏览器发出websocket连线请求，然后服务器发出回应，这个过程通常称为“握手” (handshaking)。握手完成后双方处于连接状态，两者通信传输基于类似于事件监听机制。如下图可以看到请求的详细信息：<br><img src="http://file.ipresst.com/material/pi/5e/pi5e97/f05904e139b149b941f4734ada05aa40bb76cff2.png" alt="websocket图"></p>
+<h3 id="socket-io介绍"><a href="#socket-io介绍" class="headerlink" title="socket.io介绍"></a>socket.io介绍</h3><p>Socket.io是对WebSocket进行封装的一种类库，其能够在多种平台进行扩展实现。<br><img src="http://file.ipresst.com/material/pi/5e/pi5e97/0f5a68b07c9aaec97a3b38801878faae46561cfb.png" alt="socket.io功能"><br>我们可以看到，通过socket.io可以简单实现实时数据分析、聊天、二进制文件传输，多人共同协助攥写文档等功能。</p>
+<h3 id="socket-io使用"><a href="#socket-io使用" class="headerlink" title="socket.io使用"></a>socket.io使用</h3><p>首先是通过npm进行安装：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save socket.io</span><br></pre></td></tr></table></figure>
+<p>然后在服务器端引入socket.io，并且监听端口：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(http);  <span class="comment">//服务端</span></span><br></pre></td></tr></table></figure>
+<p>最后在客户端引入socket.io.js文件，并且同样声明一个io的对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"/socket.io/socket.io.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;<span class="keyword">var</span> socket = io();&lt;/script&gt;   <span class="comment">//客户端</span></span><br></pre></td></tr></table></figure>
+<h3 id="Socket-io核心Api以及注意点"><a href="#Socket-io核心Api以及注意点" class="headerlink" title="Socket.io核心Api以及注意点"></a>Socket.io核心Api以及注意点</h3><p>1、socket一般都是单页创建，如果出现跨页的话会出现问题。<br>2、服务器连接代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>).listen(http);</span><br><span class="line">io.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//客户成功连接</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'a user connected!'</span>);</span><br><span class="line">    <span class="comment">//一系列监听代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、客户端连接代码:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'ws://localhost:3000'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>4、客户端事件<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">socket.emit(<span class="string">'login'</span>,&#123;<span class="string">"name"</span>:<span class="keyword">this</span>.name&#125;); <span class="comment">//发送"login"信息，后面的对象为传递传递的信息对象</span></span><br><span class="line">socket.on(<span class="string">'login'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;     </span><br><span class="line">   <span class="comment">//监听处理，监听服务器端发送"login"的信息，obj为服务器端传送的信息对象</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>5、服务端事件<br>每当一个新的用户连接，都会产生一个socket对象，用来表示此用户的连接。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">io.emit(<span class="string">'login'</span>,&#123;<span class="string">'onlineList'</span>:onlineList,<span class="string">'onlineCount'</span>:onlineCount,<span class="string">'user'</span>:obj.name&#125;);<span class="comment">//通知所有人，包括当前用户</span></span><br><span class="line">socket.emit(<span class="string">'test'</span>,&#123;<span class="string">'msg'</span>:<span class="string">"11"</span>&#125;);<span class="comment">//给当前用户发信息</span></span><br><span class="line">socket.broadcast.emit(<span class="string">'other'</span>);<span class="comment">//给除了当前连接以外的所有人发信息</span></span><br><span class="line">socket.send(<span class="string">'hi'</span>);<span class="comment">//message接收,对于当前用户，相当于socket.emit('message',&#123;'msg':"11"&#125;);</span></span><br><span class="line">socket.on(<span class="string">'login'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//服务器端监听客户端发送的信息，并做处理</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>对于客户端来说比较简单，一个就是通过emit进行发送信息，另外一个就是通过on来监听接收信息，但对于服务器而言，需要注意的是，服务器相当于一个中转站，将某一个人的信息传递给其他人，至于传递给谁，上面的api可以清楚看出，监听事件比较简单，都是socket.on就可以进行监听，但是对于发送信息的话就有区别了，一般来说，如果发送给所有人，就用io.emit，但如果发送给某个人，就用socket.emit（之前说过，每当一个新的用户连接都会产生一个特定的socket对象代表这个连接的标志，每个人都是不同的socket，这也为下文点对点发送信息具有很大作用）。这边有两个特殊的，就是socket.broadcast.emit(给除了当前连接以外的所有人发信息)以及socket.send(‘hi’)(客户端只能通过监听”message”才可以接收)。</p>
+<h3 id="socket-io的命名空间"><a href="#socket-io的命名空间" class="headerlink" title="socket.io的命名空间"></a>socket.io的命名空间</h3><p>socket.io还具有命名空间的概念，通过不同的命名空间可以开启不同的socket通道，可用作对接不同的客服：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> chat = io</span><br><span class="line">    .of(<span class="string">'/chat'</span>)</span><br><span class="line">    .on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</span><br><span class="line">        socket.emit(<span class="string">'a message'</span>, &#123;  </span><br><span class="line">        &#125;); </span><br><span class="line">        chat.emit(<span class="string">'a message'</span>, &#123;  </span><br><span class="line">        &#125;); <span class="comment">//相当于io.emit</span></span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>对于客户端的话：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket  = io.connect(<span class="string">"ws://localhost/chat"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这样的话，对于客户连接服务器而言，他们相当于进入了不同的小房间，然后每个小房间都是独立的，对于消息的传递也只能在这个小房间进行传递。</p>
+<h3 id="node-js实现聊天室"><a href="#node-js实现聊天室" class="headerlink" title="node.js实现聊天室"></a>node.js实现聊天室</h3><p>对于一个聊天室而言，无非就是实现下列几个功能:<br>1、环境搭建(express+mongodb)<br>2、注册登录<br>3、在线人数、在线列表展示<br>4、登录、登出消息提示<br>5、群发信息<br>6、单发信息<br>对于1、2点的话不是这篇文章所涉及的，下面说下剩下的4个的实现：</p>
+<h4 id="①在线人数、在线列表展示"><a href="#①在线人数、在线列表展示" class="headerlink" title="①在线人数、在线列表展示"></a>①在线人数、在线列表展示</h4><p>我的方法是，在服务器端维护两个全局变量，一个就是在线人数，一个就是socket列表,代码如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> onlineCount = <span class="number">0</span>;<span class="comment">//在线人数</span></span><br><span class="line"><span class="keyword">var</span> socketList = [];</span><br><span class="line"><span class="keyword">var</span> onlineList = &#123;&#125;;</span><br><span class="line">io.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">    socket.on(<span class="string">'login'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!socketList[obj.name])&#123;  </span><br><span class="line">            socketList[obj.name] = socket;</span><br><span class="line">            onlineList[obj.name] = obj.name;</span><br><span class="line">            socket.name = obj.name;</span><br><span class="line">            onlineCount++;</span><br><span class="line">            io.emit(<span class="string">'login'</span>,&#123;<span class="string">'onlineList'</span>:onlineList,<span class="string">'onlineCount'</span>:onlineCount,<span class="string">'user'</span>:obj.name&#125;);<span class="comment">//通知所有的人，包括当前用户</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在这里，onlineCount记录在线人数，onlineList记录在线列表，至于socketList下面会派上用场，在这里，其实同时实现了登录、登出的消息提示，每个人在连接服务器的时候，在js都可以发出一个’login’的信息，告诉服务器：“我登录了！”,然后服务器会将新加入的成员加入在线列表，然后通知所有人（包括登录的人，告诉登录的人现在在线的有多少人，分别是谁），同理，当某个人登出的时候，同意发送一个’logout’告诉服务器,然后服务器会将这个人信息移除，并且告诉剩下的人，**退出了，当然，有些情况下，客户可能是直接关闭浏览器，无法发送’logout’信息，其实，socket本身有监听一个特殊事件disconnect，所以可以这样写监听退出事件:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">socket.on(<span class="string">'disconnect'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(socket.name+<span class="string">'disconnect'</span>);</span><br><span class="line">    <span class="keyword">if</span>(onlineList[socket.name])&#123;</span><br><span class="line">         <span class="keyword">delete</span> onlineList[socket.name];</span><br><span class="line">         <span class="keyword">if</span>(socketList[socket.name])&#123;</span><br><span class="line">             <span class="keyword">delete</span> socketList[socket.name];</span><br><span class="line">         &#125;</span><br><span class="line">         onlineCount--;</span><br><span class="line">         io.emit(<span class="string">'logout'</span>,&#123;<span class="string">'onlineList'</span>:onlineList,<span class="string">'onlineCount'</span>:onlineCount,<span class="string">'user'</span>:socket.name&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>处理用户列表、用户人数的同时，还需要将这个人的name一同通知剩余的人，可以免去客户端进行对比排查到底是谁退出的操作，对于socket.name的话也是在登录监听事件的时候进行创建的。</p>
+<h4 id="②群发信息"><a href="#②群发信息" class="headerlink" title="②群发信息"></a>②群发信息</h4><p>群发信息相对简单，之前的api有提到过，只要使用io.emit就可以实现通知所有人，或者使用socket.broadcast.emit实现通知除了发送信息的人除外的所有人信息,对于服务器端:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">socket.on(<span class="string">'msg'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    io.emit(<span class="string">'msg'</span>,&#123;<span class="string">'msg'</span>:obj.msg,<span class="string">'user'</span>:obj.name&#125;);</span><br><span class="line">    <span class="comment">//或者socket.broadcast.emit('msg',&#123;'msg':obj.msg,'user':obj.name&#125;);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于客户端同样是一个发送事件和一个监听事件。</p>
+<h4 id="③单独发信息"><a href="#③单独发信息" class="headerlink" title="③单独发信息"></a>③单独发信息</h4><p>群发信息比较简单，那么单独发信息呢，其实介绍api的时候有提到过，对于服务器端来说，io和socket的区别，io可以想象成所有连到这个服务器的群体，socket某一个特定的人，所以群发信息用io.emit，所以，要想单独发信息的话，肯定是要用socket，那么socket如何区别谁是谁呢，你是否记得登录监听事件的时候维护过socketList列表，其实这个列表就是为了区别每一个不同socket通道，然后通过socket.send就可以对某个人发送信息，然后每个人在客户端需要监听”message”，切记，这个是内置事件，不能用其他进行替换，否则监听不了:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">socket.on(<span class="string">'msg'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    socketList[obj.to].send(&#123;<span class="string">'msg'</span>:obj.msg,<span class="string">'user'</span>:obj.name&#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>在客户端只要在发送信息的时候将想要发信息的用户名带上就可以了，然后监听message事件，看别人是否会发信息给自己就可以了。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>聊天室只是socket.io之中一个小小的应用,正如前面所说，还可以实现二进制文件传输、性能监控等许多了不起的功能，更多好玩的等待你的挖掘。<br>聊天室全部的代码可以在<a href="https://github.com/wzl610/chat-online中找到。" target="_blank" rel="external">https://github.com/wzl610/chat-online中找到。</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/28/uid5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          对于childNodes的认识
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/02/uid3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">javascript中数组的splice操作</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="uid4" data-title="node.js+socket.io实现聊天室" data-url="http://zelin.wang/2015/12/17/uid4/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wzl610"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Allen Wang
+    	</div>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78526731-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</script>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

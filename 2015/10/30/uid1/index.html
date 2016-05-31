@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Nodejs学习笔记 | Allen&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Nodejs特性异步I/0Nodejs是异步I/O的实现方式，如同Ajax一样，用户不需要等待请求的完成再进行下一步操作，而是通过回调函数实现，Nodejs读取文件实例：123456var fs =  require(&apos;fs&apos;);    fs.readFile(&apos;/path&apos;,function()&amp;#123;err,file&amp;#125;&amp;#123;    console.log(&apos;读取文件完成&apos;)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nodejs学习笔记">
+<meta property="og:url" content="http://zelin.wang/2015/10/30/uid1/index.html">
+<meta property="og:site_name" content="Allen's blog">
+<meta property="og:description" content="Nodejs特性异步I/0Nodejs是异步I/O的实现方式，如同Ajax一样，用户不需要等待请求的完成再进行下一步操作，而是通过回调函数实现，Nodejs读取文件实例：123456var fs =  require(&apos;fs&apos;);    fs.readFile(&apos;/path&apos;,function()&amp;#123;err,file&amp;#125;&amp;#123;    console.log(&apos;读取文件完成&apos;)">
+<meta property="og:updated_time" content="2016-05-31T07:17:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nodejs学习笔记">
+<meta name="twitter:description" content="Nodejs特性异步I/0Nodejs是异步I/O的实现方式，如同Ajax一样，用户不需要等待请求的完成再进行下一步操作，而是通过回调函数实现，Nodejs读取文件实例：123456var fs =  require(&apos;fs&apos;);    fs.readFile(&apos;/path&apos;,function()&amp;#123;err,file&amp;#125;&amp;#123;    console.log(&apos;读取文件完成&apos;)">
+  
+    <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Allen Wang</a><span style="margin-left:5px;"><wb:follow-button uid="2119813493" type="red_1" width="67" height="24" ></wb:follow-button></span></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Allen Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Allen Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-uid1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/30/uid1/" class="article-date">
+  	<time datetime="2015-10-30T10:22:32.000Z" itemprop="datePublished">2015-10-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nodejs学习笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Nodejs特性"><a href="#Nodejs特性" class="headerlink" title="Nodejs特性"></a>Nodejs特性</h2><h3 id="异步I-0"><a href="#异步I-0" class="headerlink" title="异步I/0"></a>异步I/0</h3><p>Nodejs是异步I/O的实现方式，如同Ajax一样，用户不需要等待请求的完成再进行下一步操作，而是通过回调函数实现，Nodejs读取文件实例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs =  <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line">    </span><br><span class="line">fs.readFile(<span class="string">'/path'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;err,file&#125;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'读取文件完成'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'发起读取文件'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>“发起读取文件”会在“读取文件完成”之前输出。</p>
+<h3 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h3><p>Node是单线程的，我们不需要处处在意状态的同步问题，这里没有死锁的存在，也没有线程上下文交换所带来的性能上的开销。但也会有一些不好的地方：<br>-无法利用多核CPU<br>-错误会引起整个应用退出，应用的健壮性值得考验<br>-大量计算占用CPU导致无法继续调用异步I/O<br>Node采用了与Web Workers相同的思路，使用子进程来解决单线程大计算量的问题，通过将计算分发到各个子进程来将大量计算分解掉。</p>
+<h2 id="模块机制"><a href="#模块机制" class="headerlink" title="模块机制"></a>模块机制</h2><h3 id="CommonJS规范"><a href="#CommonJS规范" class="headerlink" title="CommonJS规范"></a>CommonJS规范</h3><p>1、Javascript在浏览器前端的规范覆盖的范畴很小，主要包含词法、类型、上下文、表达式、声明、方法、对象等语言的基本要素。<br>2、CommonJS主要为了弥补js没有模块系统、标准库较少、没有标准接口、缺乏包管理系统的缺陷。<br>3、CommonJS API写出的应用可以具备跨宿主环境执行的能力，这样不仅可以利用javascript开发富客户端应用，而且还可以编写以下应用。<br>-服务器端JavaScript应用程序<br>-命令行工具<br>-桌面图形界面应用程序<br>-混合应用(Titanum和Adobe AIR等形式的应用)</p>
+<h3 id="CommonJS的模块规范"><a href="#CommonJS的模块规范" class="headerlink" title="CommonJS的模块规范"></a>CommonJS的模块规范</h3><p>1、模块引用示范：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>2、模块定义<br>上下文提供了exports对象用于导出当前模块的方法或者变量，并且它是唯一导出的出口。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//math.js</span></span><br><span class="line">exports.add = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span>,</span><br><span class="line">        i = <span class="number">0</span>,</span><br><span class="line">        args = <span class="built_in">arguments</span>,</span><br><span class="line">        l = args.lenght,</span><br><span class="line">    <span class="keyword">while</span>(i&lt;l)&#123;</span><br><span class="line">        sum += args[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="Node的模块实现"><a href="#Node的模块实现" class="headerlink" title="Node的模块实现"></a>Node的模块实现</h3><p>1、Node引入模块的3个步骤：路径分析、文件定位、编译执行。<br>2、Node模块的分类：核心模块（自带，加载速度快）和文件模块（用户编写）。<br>3、优先从缓存读取，然后才是查找。<br>4、模块标识符主要有：</p>
+<ul>
+<li>核心模块，如http、fs、path等<ul>
+<li>自定义的不能与核心模块相同标识符，除非使用不同的标识符名或者换用路径<br>-.或..开始的相对路径文件模块<br>-以/开始的绝对路径文件模块<br>-非路径形式的文件模块，如自定义的connect模块，查找规则如下：<br>-当前文件目录下的node_modules目录<br>-父目录下的node_modules目录<br>-父目录的父目录下的node_modules目录<br>-沿路径向上逐级递归，直到根目录下的node_modules目录</li>
+</ul>
+</li>
+</ul>
+<p>5、文件扩展名分析，CommonJS允许标识符不包含文件扩展名，这种情况下，Node会按.js、.node、.json的次序补足扩展名依次尝试。在尝试的过程中需要调用fs模块同步阻塞式地判断文件是否存在，因为Node是单线程，所以会引起一些性能问题，如果是.node和.json文件，传递给require的时候带上扩展名，另外，同步配合缓存。<br>6、目录分析和包（这点要网上查查）<br>7、对于不同的文件扩展名，采用不同的载入方法：<br>-.js文件。通过fs模块同步读取文件后编译执行。<br>-.node文件。这是用C/C++编写的扩展文件，通过dlopen()方法加载最后编译生成的文件。<br>-.json文件。通过fs模块同步读取文件后,用JSON.parse()解析返回结果。<br>-.其他扩展名文件。他们都被当成.js文件载入。<br>8、每一个编译成功的模块都会将其文件路径作为索引缓存在Module._cache对象上，以提高二次引入的性能。(主要针对文件模块)<br>9、每个模块都存在着require、exports、module和_filename、_dirname变量，原因是编译过程中，Node对获取的javascript文件内容进行了头尾包装，一个正常的JavaScript文件会被包装成如下的样子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">exports,require,module,_filename,_dirname</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>);</span><br><span class="line">    exports.area = <span class="function"><span class="keyword">function</span>(<span class="params">radius</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.PI * radius * radius;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>10、核心模块分为C/C++（存放在src目录）编写和JavaScript（存放在lib目录）编写两部分.<br>11、文件模块依赖核心模块（JavaScript），核心模块依赖内建模块(C/C++)。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/20/uid2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Phantomjs初尝试
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="uid1" data-title="Nodejs学习笔记" data-url="http://zelin.wang/2015/10/30/uid1/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wzl610"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Allen Wang
+    	</div>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78526731-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</script>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

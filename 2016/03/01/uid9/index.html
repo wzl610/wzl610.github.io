@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>浅谈BigPipe | Allen&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="随着页面元素的越来越多，页面的加载也会越来越慢，性能的问题也就越来越突出，来看看BigPipe能够带给我们什么。
+
+背景对于一个简单的项目来说，直接前端发送请求，然后后端请求数据返回页面一气呵成并不会有太多的性能问题。但是对于一些复杂的页面，拿电商来说，商品的详情页面分为很多块，可能需要请求不同的后台系统API，比如商品库系统，会员系统，推荐系统等等从而拼接成这样一个页面。对于这样的页面，意味着">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈BigPipe">
+<meta property="og:url" content="http://zelin.wang/2016/03/01/uid9/index.html">
+<meta property="og:site_name" content="Allen's blog">
+<meta property="og:description" content="随着页面元素的越来越多，页面的加载也会越来越慢，性能的问题也就越来越突出，来看看BigPipe能够带给我们什么。
+
+背景对于一个简单的项目来说，直接前端发送请求，然后后端请求数据返回页面一气呵成并不会有太多的性能问题。但是对于一些复杂的页面，拿电商来说，商品的详情页面分为很多块，可能需要请求不同的后台系统API，比如商品库系统，会员系统，推荐系统等等从而拼接成这样一个页面。对于这样的页面，意味着">
+<meta property="og:updated_time" content="2016-05-31T07:27:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈BigPipe">
+<meta name="twitter:description" content="随着页面元素的越来越多，页面的加载也会越来越慢，性能的问题也就越来越突出，来看看BigPipe能够带给我们什么。
+
+背景对于一个简单的项目来说，直接前端发送请求，然后后端请求数据返回页面一气呵成并不会有太多的性能问题。但是对于一些复杂的页面，拿电商来说，商品的详情页面分为很多块，可能需要请求不同的后台系统API，比如商品库系统，会员系统，推荐系统等等从而拼接成这样一个页面。对于这样的页面，意味着">
+  
+    <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Allen Wang</a><span style="margin-left:5px;"><wb:follow-button uid="2119813493" type="red_1" width="67" height="24" ></wb:follow-button></span></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Allen Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://avatars1.githubusercontent.com/u/5937227?v=3&amp;s=460" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Allen Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">爱前端，爱游戏，爱运动，在全栈的道路上行走着。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wzl610" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/wzelin/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/allenwang610" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-uid9" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/01/uid9/" class="article-date">
+  	<time datetime="2016-03-01T02:27:00.000Z" itemprop="datePublished">2016-03-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈BigPipe
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>随着页面元素的越来越多，页面的加载也会越来越慢，性能的问题也就越来越突出，来看看BigPipe能够带给我们什么。</p>
+</blockquote>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>对于一个简单的项目来说，直接前端发送请求，然后后端请求数据返回页面一气呵成并不会有太多的性能问题。但是对于一些复杂的页面，拿电商来说，商品的详情页面分为很多块，可能需要请求不同的后台系统API，比如商品库系统，会员系统，推荐系统等等从而拼接成这样一个页面。对于这样的页面，意味着我们可能发很多请求去请求不同的后台api从而获取页面片段，然而请求的建立是需要消耗时间和性能的，那么我们如何能够短时间加载完呢？<br><a id="more"></a></p>
+<h3 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h3><p>当然，一个最容易实现的方法就是懒加载，对于不需要展现的内容先不请求，等到需要展示的时候再请求，这点对于移动端来说比较容易实现，但是对于PC大屏幕来说，需要首屏渲染的东西太多，懒加载几乎没有作用。</p>
+<h3 id="nodejs作为中间层"><a href="#nodejs作为中间层" class="headerlink" title="nodejs作为中间层"></a>nodejs作为中间层</h3><p>现在的话，流行的一种开发方式是，后端只管业务逻辑、数据操作、api接口实现，而前端利用nodejs作为页面渲染以及路由定制等，这样做有什么好处呢？拿刚才的栗子而言，如果我一个页面需要发送多个请求到后台，这样在建立请求上会消耗大量的时间，但采用nodejs作为中间层的话前端只需要发送一个请求到nodejs，然后nodejs负责调用不同的api接口请求数据，然后组装页面返回给前端渲染。</p>
+<h3 id="BigPipe的出现"><a href="#BigPipe的出现" class="headerlink" title="BigPipe的出现"></a>BigPipe的出现</h3><p>这样就完美解决问题了么？并没有。nodejs更多的其实是解决前后端分离的问题，让后端能够专注于业务逻辑那些的开发而不用设计页面渲染等方面，通过api接口的设计可以实现一次开发，不同的系统都只需要调用这个api接口就可以了。就刚才所说，nodejs确实解决多请求的问题，但是也同样出现了瓶颈，我们还是先来看看前后端请求的过程：<br>1、页面发送http请求<br>2、后端接受http请求，然后请求数据并且封装数据(这里的后端指nodejs)<br>3、后端返回渲染好的模板<br>4、前端接收模板，并且渲染成dom树并且去下载CSS和JS文件<br>5、下载完CSS 文件后，浏览器解析他们并且应用在相应的内容上<br>6、下载完JS 后，浏览器解析和执行他们<br>大家会发现这是一个线性的过程，也就是说当前端发送请求去请求页面后，它处于等待时间，这个时候操作全部都在后端，只有等到后端处理完控制权才交还给前端，然后后端在进行等待。由于前后端处理是没有层叠部分的，所以导致时间很长，假如一个查询语句阻塞了数据的获取的话，那么前端获取到页面的时间就会更加长，并且这个过程对于用户来说是不可见的，所以用户也是无法忍受的，所以也迫切需要一种方法进行解决。FaceBook正是遇到了这种问题，2010年初的时候，Facebook的前端性能研究小组开始了他们的优化项目，经过了六个月的努力，成功的将个人空间主页面加载耗时由原来的5 秒减少为现在的2.5秒。这是一个非常了不起的成就，也给用户来带来了很好的体验。在优化项目中，工程师提出了一种新的页面加载技术，称之为Bigpipe。</p>
+<h3 id="BigPipe的好处"><a href="#BigPipe的好处" class="headerlink" title="BigPipe的好处"></a>BigPipe的好处</h3><p>如果说刚才引入nodejs减少页面请求是化零为整的话，那么BigPipe更像是化整为零，你会说，这不是相当于什么都没做么，且听我慢慢道来。<br>BigPipe提出分块的概念，即根据页面内容位置的不同，将整个页面分成不同的块儿，称为pagelet。然后根据下面的过程进行传输：<br>1、Request parsing：服务器解析和检查http request<br>2、Datafetching：服务器从存储层获取数据<br>3、Markup generation：服务器生成html 标记<br>4、Network transport ： 网络传输response<br>5、CSS downloading：浏览器下载CSS<br>6、DOM tree construction and CSS styling:浏览器生成DOM 树，并且使用CSS<br>7、JavaScript downloading: 浏览器下载页面引用的JS 文件<br>8、JavaScript execution: 浏览器执行页面JS代码<br>你会发现这个跟上面的流程差不多是一样，但这只是一个pagelet的传输过程，这样多个pagelet就可以并行传输了，从而使得客户端和服务端并不需要等待彼此，也就是说当客户端在处理一个pagelet的渲染的同时，服务器端可能正在处理下一个pagelet的封装传输，所以总的传输时间是小于所有的pagelet的传输时间和的。</p>
+<h3 id="BigPipe原理"><a href="#BigPipe原理" class="headerlink" title="BigPipe原理"></a>BigPipe原理</h3><p>那么具体是怎么实现的呢？当浏览器访问服务器时，服务器接受请求并对其进行检查。如果请求有效，服务器端不做任何的查询，而是立刻返回一个 http request 给浏览器，内容是一段html 代码，包括html<head> 标签和</head><body> 标签的一部分。<head>标签包括BigPipe 的js文件和css文件，这个js 文件用来解析后面接收的http response，因为后面传输的内容都为js脚本。未封闭的</head><body>标签中，是显示页面的逻辑结构和pagelet 的占位符的模板，例如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pagelet1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pagelet2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pagelet3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pagelet4"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pagelet5"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></body></body></p>
+<p>上述模板使用css-div 描述了页面的结构，不同的div 标签对应不同的pagelet，id 对应了pagelet 的名称。将这个response 返回给浏览器后，服务器开始对每个pagelet 的内容进行查询，加载，生成。当一个pagelet的内容生成好，立刻调用flush()函数，将其返回给客户端，传输的数据是以json 格式的，包括这个pagelet 需要的CSS 和JS，以及html 内容和一些元数据。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=”text/javascript”&gt;</span><br><span class="line">    big_pipe.onPageletArrive(</span><br><span class="line">    &#123;</span><br><span class="line">        id:<span class="string">"pagelet_composer"</span>,</span><br><span class="line">        content:<span class="string">"&lt;HTML&gt;"</span>,</span><br><span class="line">        css:<span class="string">"[..]"</span>,</span><br><span class="line">        js:<span class="string">"[..]"</span>,</span><br><span class="line">        ……</span><br><span class="line">    &#125;</span><br><span class="line">    );</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>其中”content”表示这个pagelet的内容，是html源码，特殊字符如“”/需要进行转义；”id”表示content要显示的位置，即为对应的pagelet 的id标签；”css”表示需要下载的CSS 资源的路径；”js”表示需要下载的JS 脚本的路径。为了避免文件路径过长，所以在前面需要对css 和js 文件的路径进行转换，转换后为5 位字符串：不同的pagelet 可能会加载同一个css 或js 文件，所以要避免重复下载。<br>虽然每个pagelet 都有要加载的js文件，但是所有的js文件都是在最后加载，这样有利于加快页面加载速度。客户端，当通过调用“onPageletArrive（json）”函数，第一次影响传输的JS脚本中 的函数解析了传入的json 数据，接着下载需要的CSS，然后把html 内容显示到响应的DIV 标签位置上。多个pagelets 的CSS文件可以同时下载，CSS 下载完成的pagelet 先显示。<br>在BigPipe 中，js 被给予了比CSS和content更低的优先级。这样，只有当所有的pagelets都显示了，BigPipe 才开始去下载JS文件。所有的JS文件都下载完成后，Pagelets的JS初始化代码开始执行，按照下载完成时间的先后顺序。从用户的角度看来，页面时逐步呈现的。初始的页面显示的更快，可以有效减短用户感觉到的延迟。</p>
+<h3 id="BigPipe其他一些问题的讨论"><a href="#BigPipe其他一些问题的讨论" class="headerlink" title="BigPipe其他一些问题的讨论"></a>BigPipe其他一些问题的讨论</h3><p>1、并行化处理：服务器端如果可以并行化处理pagelet的装载的话，可以很大程度加快效率，但对于PHP这种单线程的话，要么使用模拟多线程，不然只能串行装载pagelet，但串行已经能满足我们的需求。<br>2、影响SEO：BigPipe因为是使用json进行页面传输的，所以是会影响SEO，解决方法就是在服务器端首先要根据user-agent判断客户端是否是搜索引擎的爬虫，如果是的话，则转化为原有的模式，而不是动态添加，这样就解决了对搜索引擎的不友好。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/03/15/uid10/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          RESTful理解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/02/03/uid8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">exports 与 module.exports</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="uid9" data-title="浅谈BigPipe" data-url="http://zelin.wang/2016/03/01/uid9/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wzl610"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Allen Wang
+    	</div>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78526731-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</script>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
