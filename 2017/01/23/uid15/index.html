@@ -8,26 +8,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="对于前端开发来说，性能优化有一个很简单有效的方法就是减少请求数，所以我们经常将几个小的图片合并成一个大的图片，利用background-position定位到具体的某一张小图片，这种合成的大图片我们称之为精灵图。对于PC固定尺寸来说，精灵图的实现非常容易，但对于移动端常用的百分比布局来说，又该如何实现呢？
 
-###固定尺寸精灵图实现对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非">
+固定尺寸精灵图实现对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非常简单">
 <meta property="og:type" content="article">
 <meta property="og:title" content="聊聊百分比布局下的精灵图">
 <meta property="og:url" content="http://zelin.wang/2017/01/23/uid15/index.html">
 <meta property="og:site_name" content="Allen's blog">
 <meta property="og:description" content="对于前端开发来说，性能优化有一个很简单有效的方法就是减少请求数，所以我们经常将几个小的图片合并成一个大的图片，利用background-position定位到具体的某一张小图片，这种合成的大图片我们称之为精灵图。对于PC固定尺寸来说，精灵图的实现非常容易，但对于移动端常用的百分比布局来说，又该如何实现呢？
 
-###固定尺寸精灵图实现对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非">
+固定尺寸精灵图实现对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非常简单">
 <meta property="og:image" content="http://ojjzhritn.bkt.clouddn.com/a1-1.png">
 <meta property="og:image" content="http://ojjzhritn.bkt.clouddn.com/a1-2.png">
 <meta property="og:image" content="http://ojjzhritn.bkt.clouddn.com/a1-3.png">
 <meta property="og:image" content="http://ojjzhritn.bkt.clouddn.com/a1-4.png">
 <meta property="og:image" content="http://ojjzhritn.bkt.clouddn.com/a1-5.png">
 <meta property="og:image" content="http://ojjzhritn.bkt.clouddn.com/a1-2.png">
-<meta property="og:updated_time" content="2017-03-26T12:39:44.000Z">
+<meta property="og:updated_time" content="2017-03-26T12:42:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聊聊百分比布局下的精灵图">
 <meta name="twitter:description" content="对于前端开发来说，性能优化有一个很简单有效的方法就是减少请求数，所以我们经常将几个小的图片合并成一个大的图片，利用background-position定位到具体的某一张小图片，这种合成的大图片我们称之为精灵图。对于PC固定尺寸来说，精灵图的实现非常容易，但对于移动端常用的百分比布局来说，又该如何实现呢？
 
-###固定尺寸精灵图实现对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非">
+固定尺寸精灵图实现对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非常简单">
 <meta name="twitter:image" content="http://ojjzhritn.bkt.clouddn.com/a1-1.png">
   
     <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
@@ -230,17 +230,17 @@
         <blockquote>
 <p>对于前端开发来说，性能优化有一个很简单有效的方法就是减少请求数，所以我们经常将几个小的图片合并成一个大的图片，利用background-position定位到具体的某一张小图片，这种合成的大图片我们称之为精灵图。对于PC固定尺寸来说，精灵图的实现非常容易，但对于移动端常用的百分比布局来说，又该如何实现呢？</p>
 </blockquote>
-<p>###固定尺寸精灵图实现<br>对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非常简单。拿下图而言：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-1.png" alt="此处输入图片的描述"><br><a id="more"></a></p>
+<h3 id="固定尺寸精灵图实现"><a href="#固定尺寸精灵图实现" class="headerlink" title="固定尺寸精灵图实现"></a>固定尺寸精灵图实现</h3><p>对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非常简单。拿下图而言：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-1.png" alt="此处输入图片的描述"><br><a id="more"></a></p>
 <p>每张图片的宽是160px,高是120px,假设我们有如下的容器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">#container&#123;</span><br><span class="line">    width: 160px;</span><br><span class="line">	height: 120px;</span><br><span class="line">	overflow:hidden;</span><br><span class="line">	background:url(&apos;./test.png&apos;) no-repeat;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
 <p>如果我们想使用右边第二张图的话，我们只要简单设置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-position: -160px -120px;</span><br></pre></td></tr></table></figure></p>
 <p>我们就能获得我们所想要的结果：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-2.png" alt="此处输入图片的描述"></p>
-<p>###百分比布局精灵图实现<br>那么，我们来看下百分比下的精灵图又应该怎么实现？<br>我们在做单张图片背景适配布局的时候，经常会利用到background-size这个属性，只要设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-size:100% 100%;</span><br></pre></td></tr></table></figure></p>
+<h3 id="百分比布局精灵图实现"><a href="#百分比布局精灵图实现" class="headerlink" title="百分比布局精灵图实现"></a>百分比布局精灵图实现</h3><p>那么，我们来看下百分比下的精灵图又应该怎么实现？<br>我们在做单张图片背景适配布局的时候，经常会利用到background-size这个属性，只要设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-size:100% 100%;</span><br></pre></td></tr></table></figure></p>
 <p>这样无论容器的大小如何变化，图片都可以平铺满这个容器，从而达到可适配背景布局。其实，精灵图也算是背景图片的一种，那么，想要精灵图也随着容器的大小而改变，我们也需要设置background-size的属性。那么设置多少才合适呢？我们假设按照100%来设置的话，我们会发现图片全部挤在一起了。<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-3.png" alt="此处输入图片的描述"><br>但我们可以很容易联想到，如果我的长宽扩大一定比例的话，是不是就可以了？按照这张精灵图来说，总宽度是单个icon的2倍，总高度是单个icon的3倍，那么，是不是我只要设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-size:200% 300%;</span><br></pre></td></tr></table></figure></p>
 <p>我已经将容器的宽设置为了200px(icon的宽为160px)，高设置为了150px(icon的高为120px),通过上面那样设置background-size，我们会发现效果出来了:<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-4.png" alt="此处输入图片的描述"><br>icon很好地适配了容器的宽高。这时候，我们就要考虑下如何移动背景图的位置来获得我们想要的图片，自然，我们还是得利用到background-position属性，之前在固定尺寸布局下我们使用px作为background-position的单位，对于现在的百分比布局来说，我们理所当然地想到background-position的单位要改成百分比。<br>那么，我们需要设置多少呢。我们试下设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-position:100% 100%;</span><br></pre></td></tr></table></figure></p>
 <p>我们会发现得到的结果是：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-5.png" alt="此处输入图片的描述"><br>竟然是最后一张图。所以我们可以确定的是background-position的范围是0-100%，在横向上，0%（默认值）表示左边第一列图，100%表示左边第二列图。那么对于纵向上，0%表示第一横排的图，100%表示第三横排的图，那么显而易见，50%表示的是第二横排的图。为了验证我们的想法，我们设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-position:100% 50%;</span><br></pre></td></tr></table></figure></p>
 <p>可以发现果然是左边第二列，第二横排的图：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-2.png" alt="此处输入图片的描述"><br>所以我们可以得到结论是，在某一方向是，如果有n张图，那么我们就将100%进行(n-1)等分即可。像上面所示，如果有2张图，那么就是1等分就可以了（0%、100%）;如果有3张图，那么就2等分(0%、50%、100%)即可。</p>
-<p>###不等分精灵图百分比实现<br>什么是不等分精灵图，打个比方，我们刚才看到的那张云朵精灵图是由6张相同的icon组成的精灵图，但是很多时候，我们可能并不能保证每个icon的宽高都相同，我称之为不等分精灵图，那么这种精灵图又该如何实现百分比布局呢？<br>其实，等分精灵图百分比我们已经实现了，那么，不等分精灵图是否可以转换成等分精灵图进行考虑呢？<br>比方说，我们现在有一张大的精灵图，总宽度是100px，左边第一列的宽度是20px，左边第二列的宽度是80px，我们以第一列为例子。宽度20px，那么是否可以将整张图的宽度看成是5个小icon横排组成的图形？这样宽度的background-size显然就是设置成500%即可，高度也是一样计算。<br>background-size设置完以后，background-position也是用等分的思路进行考虑就可以达到目标。</p>
-<p>###归纳得出计算公式<br>根据等分精灵图的规律，得到了background-size和background-position某个方向上的计算公式，我们以宽度为例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">background-size = 精灵图总宽度/目标icon的宽度 * 100%</span><br><span class="line">background-position = 目标icon的left偏移值/(精灵图总宽度-目标icon的宽度) * 100%</span><br></pre></td></tr></table></figure></p>
+<h3 id="不等分精灵图百分比实现"><a href="#不等分精灵图百分比实现" class="headerlink" title="不等分精灵图百分比实现"></a>不等分精灵图百分比实现</h3><p>什么是不等分精灵图，打个比方，我们刚才看到的那张云朵精灵图是由6张相同的icon组成的精灵图，但是很多时候，我们可能并不能保证每个icon的宽高都相同，我称之为不等分精灵图，那么这种精灵图又该如何实现百分比布局呢？<br>其实，等分精灵图百分比我们已经实现了，那么，不等分精灵图是否可以转换成等分精灵图进行考虑呢？<br>比方说，我们现在有一张大的精灵图，总宽度是100px，左边第一列的宽度是20px，左边第二列的宽度是80px，我们以第一列为例子。宽度20px，那么是否可以将整张图的宽度看成是5个小icon横排组成的图形？这样宽度的background-size显然就是设置成500%即可，高度也是一样计算。<br>background-size设置完以后，background-position也是用等分的思路进行考虑就可以达到目标。</p>
+<h3 id="归纳得出计算公式"><a href="#归纳得出计算公式" class="headerlink" title="归纳得出计算公式"></a>归纳得出计算公式</h3><p>根据等分精灵图的规律，得到了background-size和background-position某个方向上的计算公式，我们以宽度为例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">background-size = 精灵图总宽度/目标icon的宽度 * 100%</span><br><span class="line">background-position = 目标icon的left偏移值/(精灵图总宽度-目标icon的宽度) * 100%</span><br></pre></td></tr></table></figure></p>
 <p>这样，对于不等分的精灵图我们也能很快计算出对应的值。</p>
 
       
