@@ -9,10 +9,10 @@
   <meta name="description" content="###问题出现在写一个搜索算法测试的时候，遇到一个问题，代码如下:1234567891011121314var search = function(data,text)&amp;#123;	var arr = text.split(&amp;apos;&amp;apos;),reg=&amp;apos;[A-z]*&amp;apos;;  for(var i in arr)&amp;#123;  	reg = reg + arr[i] + &amp;a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reg中的lastIndex">
-<meta property="og:url" content="http://zelin.wang/2017/03/26/uid14/index.html">
+<meta property="og:url" content="http://zelin.wang/2017/02/27/uid14/index.html">
 <meta property="og:site_name" content="Allen's blog">
 <meta property="og:description" content="###问题出现在写一个搜索算法测试的时候，遇到一个问题，代码如下:1234567891011121314var search = function(data,text)&amp;#123;	var arr = text.split(&amp;apos;&amp;apos;),reg=&amp;apos;[A-z]*&amp;apos;;  for(var i in arr)&amp;#123;  	reg = reg + arr[i] + &amp;a">
-<meta property="og:updated_time" content="2017-03-26T12:22:43.000Z">
+<meta property="og:updated_time" content="2017-03-26T12:35:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reg中的lastIndex">
 <meta name="twitter:description" content="###问题出现在写一个搜索算法测试的时候，遇到一个问题，代码如下:1234567891011121314var search = function(data,text)&amp;#123;	var arr = text.split(&amp;apos;&amp;apos;),reg=&amp;apos;[A-z]*&amp;apos;;  for(var i in arr)&amp;#123;  	reg = reg + arr[i] + &amp;a">
@@ -180,8 +180,8 @@
       <div class="body-wrap"><article id="post-uid14" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/26/uid14/" class="article-date">
-  	<time datetime="2017-03-26T12:21:46.000Z" itemprop="datePublished">2017-03-26</time>
+      <a href="/2017/02/27/uid14/" class="article-date">
+  	<time datetime="2017-02-27T12:21:46.000Z" itemprop="datePublished">2017-02-27</time>
 </a>
     </div>
   
@@ -215,6 +215,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>###问题出现<br>在写一个搜索算法测试的时候，遇到一个问题，代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var search = function(data,text)&#123;</span><br><span class="line">	var arr = text.split(&apos;&apos;),reg=&apos;[A-z]*&apos;;</span><br><span class="line">  for(var i in arr)&#123;</span><br><span class="line">  	reg = reg + arr[i] + &apos;[A-z]*&apos;</span><br><span class="line">  &#125;</span><br><span class="line">  var _regExp =new RegExp(reg,&apos;gi&apos;);</span><br><span class="line">  for(var j in data)&#123;</span><br><span class="line">  	if(_regExp.test(data[j]))&#123;</span><br><span class="line">    	console.log(data[j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">search([&apos;yreenchan&apos;,&apos;alenwang&apos;,&apos;maginazhang&apos;],&apos;ea&apos;);</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>当我自信地觉得输出结果应该是yreenchan、alenwang的时候，结果现实给了我一个啪啪啪的耳光，输出结果只有yreenchan，百思不得其解。然后我把第二个跟第三个元素调换了一下位置，数组变成[‘yreenchan’,’maginazhang’,’alenwang’]的时候，奇迹的事情出现了，结果就是我们所期望的yreenchan、alenwang，对此，我不禁开始怀疑起了人生。</p>
 <p>###lastIndex<br>当我去搜索Reg的test用法的时候，我发现了一个叫lastIndex的家伙。lastIndex 属性用于规定下次匹配的起始位置。就是说，当我们使用全局搜索的时候，test会记录当前匹配的位置，然后下一次调用test的时候就会从lastIndex这个位置继续匹配。当我原因为每一个for循环会重置的时候，才发现当初设置的全局匹配并不会因为for循环而从头开始匹配，而是根据lastIndex继续搜索。</p>
 <p>###原因分析<br>但是为什么改成[‘yreenchan’,’maginazhang’,’alenwang’]就有正确结果输出了呢？那是因为lastIndex还有一个特点，就是当它匹配失败的时候，lastIndex会重置为0。也就是说，匹配yreenchan的时候，匹配成功，lastIndex设置为9，然后从maginazhang的第9个字符开始匹配，发现匹配失败，lastIndex重置为0，然后从alenwang的开头开始匹配，发现匹配成功，所以结果就是我们预期的yreenchan、alenwang。对于初始数组[‘yreenchan’,’alenwang’,’maginazhang’]来说，当匹配第一个yreenchan的时候，lastIndex设置为9，然后从alenwang的第9个字符开始匹配，alenwang本身只有8个字符，所以第9个字符当然匹配失败了，这时候lastIndex重置为0，然后从maginazhang的开头开始匹配，还是匹配失败，所以结果只有yreenchan。</p>
@@ -229,18 +230,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/03/26/uid15/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          聊聊百分比布局下的精灵图
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/05/06/uid12/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">React——带你走进组件化的世界</div>
+    <a href="/2017/01/23/uid15/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">聊聊百分比布局下的精灵图</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -256,7 +248,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="uid14" data-title="Reg中的lastIndex" data-url="http://zelin.wang/2017/03/26/uid14/"></div>
+	<div class="ds-thread" data-thread-key="uid14" data-title="Reg中的lastIndex" data-url="http://zelin.wang/2017/02/27/uid14/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

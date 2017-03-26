@@ -178,11 +178,11 @@
 
       <div class="body-wrap">
   
-    <article id="post-uid15" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-uid14" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/26/uid15/" class="article-date">
-  	<time datetime="2017-03-26T12:26:44.000Z" itemprop="datePublished">2017-03-26</time>
+      <a href="/2017/02/27/uid14/" class="article-date">
+  	<time datetime="2017-02-27T12:21:46.000Z" itemprop="datePublished">2017-02-27</time>
 </a>
     </div>
   
@@ -195,7 +195,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/26/uid15/">聊聊百分比布局下的精灵图</a>
+      <a class="article-title" href="/2017/02/27/uid14/">Reg中的lastIndex</a>
     </h1>
   
 
@@ -204,21 +204,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>对于前端开发来说，性能优化有一个很简单有效的方法就是减少请求数，所以我们经常将几个小的图片合并成一个大的图片，利用background-position定位到具体的某一张小图片，这种合成的大图片我们称之为精灵图。对于PC固定尺寸来说，精灵图的实现非常容易，但对于移动端常用的百分比布局来说，又该如何实现呢？</p>
-<p>###固定尺寸精灵图实现<br>对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非常简单。拿下图而言：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-1.png" alt="此处输入图片的描述"><br>每张图片的宽是160px,高是120px,假设我们有如下的容器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">#container&#123;</span><br><span class="line">    width: 160px;</span><br><span class="line">	height: 120px;</span><br><span class="line">	overflow:hidden;</span><br><span class="line">	background:url(&apos;./test.png&apos;) no-repeat;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>如果我们想使用右边第二张图的话，我们只要简单设置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-position: -160px -120px;</span><br></pre></td></tr></table></figure></p>
-<p>我们就能获得我们所想要的结果：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-2.png" alt="此处输入图片的描述"></p>
-<p>###百分比布局精灵图实现<br>那么，我们来看下百分比下的精灵图又应该怎么实现？<br>我们在做单张图片背景适配布局的时候，经常会利用到background-size这个属性，只要设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-size:100% 100%;</span><br></pre></td></tr></table></figure></p>
-<p>这样无论容器的大小如何变化，图片都可以平铺满这个容器，从而达到可适配背景布局。其实，精灵图也算是背景图片的一种，那么，想要精灵图也随着容器的大小而改变，我们也需要设置background-size的属性。那么设置多少才合适呢？我们假设按照100%来设置的话，我们会发现图片全部挤在一起了。<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-3.png" alt="此处输入图片的描述"><br>但我们可以很容易联想到，如果我的长宽扩大一定比例的话，是不是就可以了？按照这张精灵图来说，总宽度是单个icon的2倍，总高度是单个icon的3倍，那么，是不是我只要设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-size:200% 300%;</span><br></pre></td></tr></table></figure></p>
-<p>我已经将容器的宽设置为了200px(icon的宽为160px)，高设置为了150px(icon的高为120px),通过上面那样设置background-size，我们会发现效果出来了:<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-4.png" alt="此处输入图片的描述"><br>icon很好地适配了容器的宽高。这时候，我们就要考虑下如何移动背景图的位置来获得我们想要的图片，自然，我们还是得利用到background-position属性，之前在固定尺寸布局下我们使用px作为background-position的单位，对于现在的百分比布局来说，我们理所当然地想到background-position的单位要改成百分比。<br>那么，我们需要设置多少呢。我们试下设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-position:100% 100%;</span><br></pre></td></tr></table></figure></p>
-<p>我们会发现得到的结果是：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-5.png" alt="此处输入图片的描述"><br>竟然是最后一张图。所以我们可以确定的是background-position的范围是0-100%，在横向上，0%（默认值）表示左边第一列图，100%表示左边第二列图。那么对于纵向上，0%表示第一横排的图，100%表示第三横排的图，那么显而易见，50%表示的是第二横排的图。为了验证我们的想法，我们设置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-position:100% 50%;</span><br></pre></td></tr></table></figure></p>
-<p>可以发现果然是左边第二列，第二横排的图：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-2.png" alt="此处输入图片的描述"><br>所以我们可以得到结论是，在某一方向是，如果有n张图，那么我们就将100%进行(n-1)等分即可。像上面所示，如果有2张图，那么就是1等分就可以了（0%、100%）;如果有3张图，那么就2等分(0%、50%、100%)即可。</p>
-<p>###不等分精灵图百分比实现<br>什么是不等分精灵图，打个比方，我们刚才看到的那张云朵精灵图是由6张相同的icon组成的精灵图，但是很多时候，我们可能并不能保证每个icon的宽高都相同，我称之为不等分精灵图，那么这种精灵图又该如何实现百分比布局呢？<br>其实，等分精灵图百分比我们已经实现了，那么，不等分精灵图是否可以转换成等分精灵图进行考虑呢？<br>比方说，我们现在有一张大的精灵图，总宽度是100px，左边第一列的宽度是20px，左边第二列的宽度是80px，我们以第一列为例子。宽度20px，那么是否可以将整张图的宽度看成是5个小icon横排组成的图形？这样宽度的background-size显然就是设置成500%即可，高度也是一样计算。<br>background-size设置完以后，background-position也是用等分的思路进行考虑就可以达到目标。</p>
-<p>###归纳得出计算公式<br>根据等分精灵图的规律，得到了background-size和background-position某个方向上的计算公式，我们以宽度为例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">background-size = 精灵图总宽度/目标icon的宽度 * 100%</span><br><span class="line">background-position = 目标icon的left偏移值/(精灵图总宽度-目标icon的宽度) * 100%</span><br></pre></td></tr></table></figure></p>
-<p>这样，对于不等分的精灵图我们也能很快计算出对应的值。</p>
-
+        <p>###问题出现<br>在写一个搜索算法测试的时候，遇到一个问题，代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var search = function(data,text)&#123;</span><br><span class="line">	var arr = text.split(&apos;&apos;),reg=&apos;[A-z]*&apos;;</span><br><span class="line">  for(var i in arr)&#123;</span><br><span class="line">  	reg = reg + arr[i] + &apos;[A-z]*&apos;</span><br><span class="line">  &#125;</span><br><span class="line">  var _regExp =new RegExp(reg,&apos;gi&apos;);</span><br><span class="line">  for(var j in data)&#123;</span><br><span class="line">  	if(_regExp.test(data[j]))&#123;</span><br><span class="line">    	console.log(data[j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">search([&apos;yreenchan&apos;,&apos;alenwang&apos;,&apos;maginazhang&apos;],&apos;ea&apos;);</span><br></pre></td></tr></table></figure></p>
       
     </div>
     
@@ -226,11 +212,15 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2017/02/27/uid14/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -248,11 +238,11 @@
 
 
   
-    <article id="post-uid14" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-uid15" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/26/uid14/" class="article-date">
-  	<time datetime="2017-03-26T12:21:46.000Z" itemprop="datePublished">2017-03-26</time>
+      <a href="/2017/01/23/uid15/" class="article-date">
+  	<time datetime="2017-01-23T12:26:44.000Z" itemprop="datePublished">2017-01-23</time>
 </a>
     </div>
   
@@ -265,7 +255,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/26/uid14/">Reg中的lastIndex</a>
+      <a class="article-title" href="/2017/01/23/uid15/">聊聊百分比布局下的精灵图</a>
     </h1>
   
 
@@ -274,13 +264,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###问题出现<br>在写一个搜索算法测试的时候，遇到一个问题，代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var search = function(data,text)&#123;</span><br><span class="line">	var arr = text.split(&apos;&apos;),reg=&apos;[A-z]*&apos;;</span><br><span class="line">  for(var i in arr)&#123;</span><br><span class="line">  	reg = reg + arr[i] + &apos;[A-z]*&apos;</span><br><span class="line">  &#125;</span><br><span class="line">  var _regExp =new RegExp(reg,&apos;gi&apos;);</span><br><span class="line">  for(var j in data)&#123;</span><br><span class="line">  	if(_regExp.test(data[j]))&#123;</span><br><span class="line">    	console.log(data[j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">search([&apos;yreenchan&apos;,&apos;alenwang&apos;,&apos;maginazhang&apos;],&apos;ea&apos;);</span><br></pre></td></tr></table></figure></p>
-<p>当我自信地觉得输出结果应该是yreenchan、alenwang的时候，结果现实给了我一个啪啪啪的耳光，输出结果只有yreenchan，百思不得其解。然后我把第二个跟第三个元素调换了一下位置，数组变成[‘yreenchan’,’maginazhang’,’alenwang’]的时候，奇迹的事情出现了，结果就是我们所期望的yreenchan、alenwang，对此，我不禁开始怀疑起了人生。</p>
-<p>###lastIndex<br>当我去搜索Reg的test用法的时候，我发现了一个叫lastIndex的家伙。lastIndex 属性用于规定下次匹配的起始位置。就是说，当我们使用全局搜索的时候，test会记录当前匹配的位置，然后下一次调用test的时候就会从lastIndex这个位置继续匹配。当我原因为每一个for循环会重置的时候，才发现当初设置的全局匹配并不会因为for循环而从头开始匹配，而是根据lastIndex继续搜索。</p>
-<p>###原因分析<br>但是为什么改成[‘yreenchan’,’maginazhang’,’alenwang’]就有正确结果输出了呢？那是因为lastIndex还有一个特点，就是当它匹配失败的时候，lastIndex会重置为0。也就是说，匹配yreenchan的时候，匹配成功，lastIndex设置为9，然后从maginazhang的第9个字符开始匹配，发现匹配失败，lastIndex重置为0，然后从alenwang的开头开始匹配，发现匹配成功，所以结果就是我们预期的yreenchan、alenwang。对于初始数组[‘yreenchan’,’alenwang’,’maginazhang’]来说，当匹配第一个yreenchan的时候，lastIndex设置为9，然后从alenwang的第9个字符开始匹配，alenwang本身只有8个字符，所以第9个字符当然匹配失败了，这时候lastIndex重置为0，然后从maginazhang的开头开始匹配，还是匹配失败，所以结果只有yreenchan。</p>
-<p>###解决方法<br>1、每次搜索完重置lastIndex，将for循环体改成如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for(var j in data)&#123;</span><br><span class="line">    if(_regExp.test(data[j]))&#123;</span><br><span class="line">        _regExp.lastIndex = 0;</span><br><span class="line">	    console.log(data[j]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2、去除全局匹配g<br>3、使用match代替test进行正则匹配</p>
-
+        <blockquote>
+<p>对于前端开发来说，性能优化有一个很简单有效的方法就是减少请求数，所以我们经常将几个小的图片合并成一个大的图片，利用background-position定位到具体的某一张小图片，这种合成的大图片我们称之为精灵图。对于PC固定尺寸来说，精灵图的实现非常容易，但对于移动端常用的百分比布局来说，又该如何实现呢？</p>
+<p>###固定尺寸精灵图实现<br>对于PC端，如果我们用固定尺寸px来布局的话，那么精灵图的实现非常简单。拿下图而言：<br><img src="http://ojjzhritn.bkt.clouddn.com/a1-1.png" alt="此处输入图片的描述"><br>
       
     </div>
     
@@ -288,11 +274,15 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
 	</div>
 
       
 
+      
+        <p class="article-more-link">
+          <a  href="/2017/01/23/uid15/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
