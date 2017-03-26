@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Phantomjs初尝试 | Allen&#39;s blog</title>
+  <title>Reg中的lastIndex | Allen&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Phantomjs简介Phantomjs身为headless的测试工具，何为headless，就是不需要打开真正的浏览器，使用命令行就可以访问网页。Phantomjs本身就是一个webkit内核的测试工具，换句话就是用Phantomjs模拟webkit内核的浏览器打开网页进行测试，对比curl那些模拟测试有其先天的优势，有些网页的dom节点是通过js进行渲染的，对于curl等的话无法捕捉这部分的节">
+  <meta name="description" content="###问题出现在写一个搜索算法测试的时候，遇到一个问题，代码如下:1234567891011121314var search = function(data,text)&amp;#123;	var arr = text.split(&amp;apos;&amp;apos;),reg=&amp;apos;[A-z]*&amp;apos;;  for(var i in arr)&amp;#123;  	reg = reg + arr[i] + &amp;a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Phantomjs初尝试">
-<meta property="og:url" content="http://zelin.wang/2015/11/20/uid2/index.html">
+<meta property="og:title" content="Reg中的lastIndex">
+<meta property="og:url" content="http://zelin.wang/2017/03/26/uid14/index.html">
 <meta property="og:site_name" content="Allen's blog">
-<meta property="og:description" content="Phantomjs简介Phantomjs身为headless的测试工具，何为headless，就是不需要打开真正的浏览器，使用命令行就可以访问网页。Phantomjs本身就是一个webkit内核的测试工具，换句话就是用Phantomjs模拟webkit内核的浏览器打开网页进行测试，对比curl那些模拟测试有其先天的优势，有些网页的dom节点是通过js进行渲染的，对于curl等的话无法捕捉这部分的节">
-<meta property="og:updated_time" content="2016-05-31T07:18:47.000Z">
+<meta property="og:description" content="###问题出现在写一个搜索算法测试的时候，遇到一个问题，代码如下:1234567891011121314var search = function(data,text)&amp;#123;	var arr = text.split(&amp;apos;&amp;apos;),reg=&amp;apos;[A-z]*&amp;apos;;  for(var i in arr)&amp;#123;  	reg = reg + arr[i] + &amp;a">
+<meta property="og:updated_time" content="2017-03-26T12:22:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Phantomjs初尝试">
-<meta name="twitter:description" content="Phantomjs简介Phantomjs身为headless的测试工具，何为headless，就是不需要打开真正的浏览器，使用命令行就可以访问网页。Phantomjs本身就是一个webkit内核的测试工具，换句话就是用Phantomjs模拟webkit内核的浏览器打开网页进行测试，对比curl那些模拟测试有其先天的优势，有些网页的dom节点是通过js进行渲染的，对于curl等的话无法捕捉这部分的节">
+<meta name="twitter:title" content="Reg中的lastIndex">
+<meta name="twitter:description" content="###问题出现在写一个搜索算法测试的时候，遇到一个问题，代码如下:1234567891011121314var search = function(data,text)&amp;#123;	var arr = text.split(&amp;apos;&amp;apos;),reg=&amp;apos;[A-z]*&amp;apos;;  for(var i in arr)&amp;#123;  	reg = reg + arr[i] + &amp;a">
   
     <link rel="alternative" href="/atom.xml" title="Allen&#39;s blog" type="application/atom+xml">
   
@@ -177,11 +177,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-uid2" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-uid14" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/11/20/uid2/" class="article-date">
-  	<time datetime="2015-11-20T06:36:00.000Z" itemprop="datePublished">2015-11-20</time>
+      <a href="/2017/03/26/uid14/" class="article-date">
+  	<time datetime="2017-03-26T12:21:46.000Z" itemprop="datePublished">2017-03-26</time>
 </a>
     </div>
   
@@ -194,7 +194,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Phantomjs初尝试
+      Reg中的lastIndex
     </h1>
   
 
@@ -203,7 +203,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 	</div>
 
         
@@ -214,16 +214,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Phantomjs简介"><a href="#Phantomjs简介" class="headerlink" title="Phantomjs简介"></a>Phantomjs简介</h3><p>Phantomjs身为headless的测试工具，何为headless，就是不需要打开真正的浏览器，使用命令行就可以访问网页。Phantomjs本身就是一个webkit内核的测试工具，换句话就是用Phantomjs模拟webkit内核的浏览器打开网页进行测试，对比curl那些模拟测试有其先天的优势，有些网页的dom节点是通过js进行渲染的，对于curl等的话无法捕捉这部分的节点，但是使用Phantomjs的话可以很轻松办到。Phantomjs对于测试截图、模拟操作有很好的用途，甚至，对于爬虫都有很好的实现，但是对于测试的话，还是有点不尽如人意。</p>
-<h3 id="测试的分类"><a href="#测试的分类" class="headerlink" title="测试的分类"></a>测试的分类</h3><p>测试一般分为UI测试和逻辑单元测试，对于逻辑单元测试的话，更多的是检测函数的功能实现，目前网上有许多断言的测试工具，如mocha都可以进行断言测试，总体来说逻辑单元测试的复杂性不太高，反而是UI测试的复杂性会高点。</p>
-<h3 id="Phantomjs在UI测试上的作用"><a href="#Phantomjs在UI测试上的作用" class="headerlink" title="Phantomjs在UI测试上的作用"></a>Phantomjs在UI测试上的作用</h3><p>UI测试，有很大一部分是测试UI的交互等，Phantomjs在获取网页后，可以在内部使用dom交互的模拟操作，并且有一定的监听机制，这些都有利于进行UI的交互测试。另外一方面，有人会进行UI的像素级别的测试，换句话说，就是测试页面在修改前后像素级别上的差异，然后用显眼的符号进行标注，更多的可以参考PhantomCSS。<br><a id="more"></a></p>
-<h3 id="Phantomjs的劣势"><a href="#Phantomjs的劣势" class="headerlink" title="Phantomjs的劣势"></a>Phantomjs的劣势</h3><p>虽然Phantomjs是webkit内核，但这种内核与实际的chrome浏览器的webkit还是有点差异，所以在某些实现上，与实际浏览器所看到的还是有点差别。另一方面，由于Phantomjs是webkit内核，所以无法进行浏览器兼容性测试，下面会讲在这方面的尝试。</p>
-<h3 id="Phantomjs在浏览器兼容测试的尝试"><a href="#Phantomjs在浏览器兼容测试的尝试" class="headerlink" title="Phantomjs在浏览器兼容测试的尝试"></a>Phantomjs在浏览器兼容测试的尝试</h3><p>Phantomjs在创建的page中是可以设置userAgent的，所以笔者大胆假设它是可以绕过webkit内核使用其他内核，如FF的Gecko的内核进行伪装成FF进行浏览器的访问。</p>
-<p>首先创建测试示例，在页面中加入一个div，然后div的css设置成：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span>: 300<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">height</span>: 300<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background-color</span>: <span class="selector-tag">red</span>;</span><br><span class="line"><span class="selector-tag">-moz-transform</span> : <span class="selector-tag">translate</span>(100<span class="selector-tag">px</span>,200<span class="selector-tag">px</span>);</span><br></pre></td></tr></table></figure></p>
-<p>OK,理论上来说只有FF的浏览器显示才会出现div的位移效果，然后我设置userAgent为FF的内核：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">page.settings.userAgent = <span class="string">'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0'</span>;</span><br></pre></td></tr></table></figure></p>
-<p>然后进行测试截图，发现截图中的div并没有像想象中那样出现位移效果，所以Phantomjs是没有办法绕过webkit内核去伪装其他内核浏览器进行浏览器兼容测试。</p>
-<h3 id="Phantomjs中userAgent设置的用处"><a href="#Phantomjs中userAgent设置的用处" class="headerlink" title="Phantomjs中userAgent设置的用处"></a>Phantomjs中userAgent设置的用处</h3><p>上面说到无法模拟其他内核的浏览器进行兼容性测试，那么userAgent设置有什么作用呢，目前体验来说，笔者觉得一个作用就是可以模拟手机访问页面，对于一些网站，如www.baidu.com，它是会进行访问设备的判断，当发现是移动设备的时候是会自动跳转到m.baidu.com的，所以设置userAgent为IPhone5的时候：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">page.settings.userAgent = <span class="string">'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53'</span>;</span><br></pre></td></tr></table></figure></p>
-<p>访问百度进行测试截图发现，访问的确实是m.baidu.com，所以设置userAgent可以模拟手机进行访问。</p>
+        <p>###问题出现<br>在写一个搜索算法测试的时候，遇到一个问题，代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var search = function(data,text)&#123;</span><br><span class="line">	var arr = text.split(&apos;&apos;),reg=&apos;[A-z]*&apos;;</span><br><span class="line">  for(var i in arr)&#123;</span><br><span class="line">  	reg = reg + arr[i] + &apos;[A-z]*&apos;</span><br><span class="line">  &#125;</span><br><span class="line">  var _regExp =new RegExp(reg,&apos;gi&apos;);</span><br><span class="line">  for(var j in data)&#123;</span><br><span class="line">  	if(_regExp.test(data[j]))&#123;</span><br><span class="line">    	console.log(data[j]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">search([&apos;yreenchan&apos;,&apos;alenwang&apos;,&apos;maginazhang&apos;],&apos;ea&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>当我自信地觉得输出结果应该是yreenchan、alenwang的时候，结果现实给了我一个啪啪啪的耳光，输出结果只有yreenchan，百思不得其解。然后我把第二个跟第三个元素调换了一下位置，数组变成[‘yreenchan’,’maginazhang’,’alenwang’]的时候，奇迹的事情出现了，结果就是我们所期望的yreenchan、alenwang，对此，我不禁开始怀疑起了人生。</p>
+<p>###lastIndex<br>当我去搜索Reg的test用法的时候，我发现了一个叫lastIndex的家伙。lastIndex 属性用于规定下次匹配的起始位置。就是说，当我们使用全局搜索的时候，test会记录当前匹配的位置，然后下一次调用test的时候就会从lastIndex这个位置继续匹配。当我原因为每一个for循环会重置的时候，才发现当初设置的全局匹配并不会因为for循环而从头开始匹配，而是根据lastIndex继续搜索。</p>
+<p>###原因分析<br>但是为什么改成[‘yreenchan’,’maginazhang’,’alenwang’]就有正确结果输出了呢？那是因为lastIndex还有一个特点，就是当它匹配失败的时候，lastIndex会重置为0。也就是说，匹配yreenchan的时候，匹配成功，lastIndex设置为9，然后从maginazhang的第9个字符开始匹配，发现匹配失败，lastIndex重置为0，然后从alenwang的开头开始匹配，发现匹配成功，所以结果就是我们预期的yreenchan、alenwang。对于初始数组[‘yreenchan’,’alenwang’,’maginazhang’]来说，当匹配第一个yreenchan的时候，lastIndex设置为9，然后从alenwang的第9个字符开始匹配，alenwang本身只有8个字符，所以第9个字符当然匹配失败了，这时候lastIndex重置为0，然后从maginazhang的开头开始匹配，还是匹配失败，所以结果只有yreenchan。</p>
+<p>###解决方法<br>1、每次搜索完重置lastIndex，将for循环体改成如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for(var j in data)&#123;</span><br><span class="line">    if(_regExp.test(data[j]))&#123;</span><br><span class="line">        _regExp.lastIndex = 0;</span><br><span class="line">	    console.log(data[j]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2、去除全局匹配g<br>3、使用match代替test进行正则匹配</p>
 
       
     </div>
@@ -233,18 +229,18 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/12/02/uid3/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/03/26/uid15/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          javascript中数组的splice操作
+          聊聊百分比布局下的精灵图
         
       </div>
     </a>
   
   
-    <a href="/2015/10/30/uid1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Nodejs学习笔记</div>
+    <a href="/2016/05/06/uid12/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React——带你走进组件化的世界</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -260,7 +256,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="uid2" data-title="Phantomjs初尝试" data-url="http://zelin.wang/2015/11/20/uid2/"></div>
+	<div class="ds-thread" data-thread-key="uid14" data-title="Reg中的lastIndex" data-url="http://zelin.wang/2017/03/26/uid14/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

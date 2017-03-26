@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a>
+						<a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css3/" style="font-size: 10px;">css3</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a>
 					</div>
 				</section>
 				
@@ -226,7 +226,7 @@
 <p>然后在服务器端引入socket.io，并且监听端口：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(http);  <span class="comment">//服务端</span></span><br></pre></td></tr></table></figure>
 <p>最后在客户端引入socket.io.js文件，并且同样声明一个io的对象：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"/socket.io/socket.io.js"</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;<span class="keyword">var</span> socket = io();&lt;/script&gt;   <span class="comment">//客户端</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"/socket.io/socket.io.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;<span class="keyword">var</span> socket = io();<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span>   <span class="comment">//客户端</span></span><br></pre></td></tr></table></figure>
 <h3 id="Socket-io核心Api以及注意点"><a href="#Socket-io核心Api以及注意点" class="headerlink" title="Socket.io核心Api以及注意点"></a>Socket.io核心Api以及注意点</h3><p>1、socket一般都是单页创建，如果出现跨页的话会出现问题。<br>2、服务器连接代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>).listen(http);</span><br><span class="line">io.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//客户成功连接</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'a user connected!'</span>);</span><br><span class="line">    <span class="comment">//一系列监听代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>3、客户端连接代码:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = io.connect(<span class="string">'ws://localhost:3000'</span>);</span><br></pre></td></tr></table></figure></p>
@@ -307,7 +307,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 Allen Wang
+    		&copy; 2017 Allen Wang 粤ICP备15060371号
     	</div>
     </div>
   </div>
